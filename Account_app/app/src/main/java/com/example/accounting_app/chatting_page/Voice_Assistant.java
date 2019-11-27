@@ -161,7 +161,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
 
     private void initChatbot() {
-        final AIConfiguration config = new AIConfiguration("4d12129ca3c44657b8029cbe88f190d2",
+        final AIConfiguration config = new AIConfiguration("f37ab19dce164cf68256557b4cb05129",
                 AIConfiguration.SupportedLanguages.ChineseTaiwan,
                 AIConfiguration.RecognitionEngine.System);
         aiService = AIService.getService(this, config);
