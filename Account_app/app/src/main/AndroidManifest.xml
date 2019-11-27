@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".budget"></activity>
+        <activity android:name=".Role_choose" />
+        <activity android:name=".Main2Activity" />
     </application>
 
 </manifest>
