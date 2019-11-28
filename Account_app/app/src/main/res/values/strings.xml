@@ -2,4 +2,18 @@
     <string name="app_name">Accounting_app</string>
     <string name="button">Button</string>
     <string name="統計圖表">\@string</string>
+    <string name="logoDes">this is logo</string>
+    <string name="logoName">小智帳</string>
+    <string name="account">帳號 : </string>
+    <string name="password">密碼 : </string>
+    <string name="passwordHint">密碼提示 : </string>
+    <string name="ensure_password">請再次輸入密碼 : </string>
+    <string name="emailplz">請輸入您的電子郵件</string>
+    <string name="accountplz">請輸入帳號</string>
+    <string name="signup">註冊 /</string>
+    <string name="signup2">註冊</string>
+    <string name="forgetpas">忘記密碼?</string>
+    <string name="forgetpas2">忘記密碼</string>
+    <string name="login">登入</string>
+    <string name="sure">確認</string>
 </resources>
