@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Accounting_app</string>
+    <string name="button">Button</string>
+    <string name="統計圖表">\@string</string>
 </resources>
