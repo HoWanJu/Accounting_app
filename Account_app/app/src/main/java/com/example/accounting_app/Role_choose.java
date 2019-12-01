@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class Role_choose extends AppCompatActivity {
-    ImageButton imBtn1;
-    ImageButton imBtn2;
-    ImageButton imBtn3;
+    ImageButton imBtnMom;
+    ImageButton imBtnDad;
+    ImageButton imBtnExpert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,22 +20,22 @@ public class Role_choose extends AppCompatActivity {
         setMainControl();
     }
     private void setMainControl(){
-        imBtn1 = (ImageButton)findViewById(R.id.momBtn);
-        imBtn1.setOnClickListener(new View.OnClickListener(){
+        imBtnMom = (ImageButton)findViewById(R.id.momBtn);
+        imBtnMom.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 show(1);
             }
         });
 
-        imBtn2 = (ImageButton)findViewById(R.id.dadBtn);
-        imBtn2.setOnClickListener(new View.OnClickListener(){
+        imBtnDad = (ImageButton)findViewById(R.id.dadBtn);
+        imBtnDad.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 show(2);
             }
         });
 
-        imBtn3 = (ImageButton)findViewById(R.id.expertBtn);
-        imBtn3.setOnClickListener(new View.OnClickListener(){
+        imBtnExpert = (ImageButton)findViewById(R.id.expertBtn);
+        imBtnExpert.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 show(3);
             }
