@@ -9,24 +9,25 @@
 
     <ImageView
         android:id="@+id/imageView_start"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:contentDescription="logoPic"
-        app:srcCompat="@drawable/dad"
+        android:layout_width="220dp"
+        android:layout_height="207dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
-        />
+        android:layout_marginTop="180dp"
+        android:contentDescription="logoPic"
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="小智障"
         android:textColor="@color/colorPrimary"
-        android:textSize="25sp"
+        android:textSize="50sp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageView_start"
         android:layout_marginTop="50dp"/>
+
+
 
 
 </RelativeLayout>
