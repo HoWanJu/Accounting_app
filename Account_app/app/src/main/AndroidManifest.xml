@@ -21,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Resetpassword" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity">
-        </activity>
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".chatting_page.Voice_Assistant"
             android:screenOrientation="portrait" />
