@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:background="@drawable/backgroudcolor">
+    tools:context=".LoginActivity">
 
 
     <ImageView
@@ -27,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/logoName"
-        android:textColor="@color/colorWhite"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/account"
-            android:textColor="@color/colorWhite"
             android:textSize="24sp" />
 
         <EditText
@@ -57,9 +54,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/edittextshape"
             android:ems="10"
-            android:hint="@string/emailplz"
+            android:hint=""
+            android:layout_marginLeft="20dp"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/colorWhite"
             android:textSize="18sp" />
@@ -84,7 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/password"
-            android:textColor="@color/colorWhite"
             android:textSize="24sp" />
 
         <EditText
@@ -92,9 +88,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/edittextshape"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:layout_marginLeft="20dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -116,7 +112,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/signup"
-            android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
         <TextView
@@ -126,7 +121,6 @@
             android:layout_weight="1"
             android:paddingLeft="5dp"
             android:text="@string/forgetpas"
-            android:textColor="@color/colorWhite"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -140,7 +134,6 @@
         android:width="200dp"
         android:background="@drawable/transparent_bg_bordered_button"
         android:text="@string/login"
-        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
