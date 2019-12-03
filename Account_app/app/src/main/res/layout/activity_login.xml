@@ -57,9 +57,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/edittextshape"
             android:ems="10"
-            android:hint="@string/emailplz"
+            android:hint=""
+            android:layout_marginLeft="20dp"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/colorWhite"
             android:textSize="18sp" />
@@ -92,9 +92,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/edittextshape"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:layout_marginLeft="20dp"/>
     </LinearLayout>
 
     <LinearLayout
