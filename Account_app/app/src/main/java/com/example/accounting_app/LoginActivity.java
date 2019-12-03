@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.cloud.Role;
-
 public class LoginActivity extends AppCompatActivity {
 
     EditText account;
@@ -27,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         account = findViewById(R.id.editText_account);
         password = findViewById(R.id.editText_password);
+
         loginBtn = findViewById(R.id.button_login);
         signup = findViewById(R.id.textView_signUp);
         forgetpassword = findViewById(R.id.textView_forgetPas);
