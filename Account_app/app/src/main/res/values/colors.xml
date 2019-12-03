@@ -10,4 +10,5 @@
     <color name="colorGrey">#aaaaaa</color>
     <color name="colorBlueLight">#D9EBFF</color>
     <color name="transparent">#00000000</color>
+    <color name="gray_50">#676a74</color>
 </resources>
