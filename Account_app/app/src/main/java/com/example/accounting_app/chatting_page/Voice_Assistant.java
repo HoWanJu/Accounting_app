@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -48,10 +49,11 @@ import ai.api.android.AIService;
 import android.Manifest;
 import android.content.pm.PackageManager;
 public class Voice_Assistant extends AppCompatActivity implements AIListener {
-    private TextView sendBtn;
+    private ImageView sendBtn;
     private RelativeLayout mic;
     private LinearLayout ac_text;
-    private CheckBox switch_btn;
+    private Button switch_btn_chat;
+    private Button switch_btn_account;
 
     //chatbox
     private static final String TAG = Voice_Assistant.class.getSimpleName();
@@ -104,22 +106,59 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         });
         mic = findViewById(R.id.mic);
 
-        //鍵盤與語音互換
-        switch_btn = findViewById(R.id.swith_btn);
-        ac_text = findViewById(R.id.ac_text);
-        switch_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(switch_btn.isChecked()){
-                    ac_text.setVisibility(View.VISIBLE);
-                    mic.setVisibility(View.GONE);
-                }else{
-                    ac_text.setVisibility(View.GONE);
-                    mic.setVisibility(View.VISIBLE);
-                }
+        //切換至記帳or聊天
+        switch_btn_chat = findViewById(R.id.switch_btn_chat);
+        switch_btn_account = findViewById(R.id.switch_btn_account);
 
+        ac_text = findViewById(R.id.ac_text);
+
+
+        //按鈕切換至聊天
+        switch_btn_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ac_text.setVisibility(View.VISIBLE);
+                switch_btn_chat.setVisibility(View.GONE);
+                switch_btn_account.setVisibility(View.GONE);
+                mic.setVisibility(View.VISIBLE);
+                sendBtn.setVisibility(View.VISIBLE);
             }
         });
+        ac_text.setVisibility(View.GONE);
+        mic.setVisibility(View.GONE);
+        sendBtn.setVisibility(View.GONE);
+
+        //按鈕切換至記帳
+        switch_btn_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ac_text.setVisibility(View.GONE);
+                switch_btn_chat.setVisibility(View.GONE);
+                switch_btn_account.setVisibility(View.GONE);
+                mic.setVisibility(View.GONE);
+                sendBtn.setVisibility(View.GONE);
+            }
+        });
+        ac_text.setVisibility(View.GONE);
+        mic.setVisibility(View.GONE);
+        sendBtn.setVisibility(View.GONE);
+
+
+
+
+//        switch_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(switch_btn.isChecked()){
+//                    ac_text.setVisibility(View.VISIBLE);
+//                    mic.setVisibility(View.GONE);
+//                }else{
+//                    ac_text.setVisibility(View.GONE);
+//                    mic.setVisibility(View.VISIBLE);
+//                }
+//
+//            }
+//        });
         //權限
         int permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO);

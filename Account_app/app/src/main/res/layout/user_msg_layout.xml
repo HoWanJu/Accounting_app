@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:background="@drawable/rounded_retangle_blue">
 
     <LinearLayout
         android:id="@+id/userMsgLayout"
@@ -13,20 +14,21 @@
         android:layout_marginBottom="4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/user_bg_bubble"
         android:gravity="end|center_vertical"
         android:orientation="vertical"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="8dp">
 
         <TextView
+            android:background="@drawable/rounded_retangle_blue"
             android:id="@+id/chatMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
             android:layout_marginTop="6dp"
             android:text="abcdefgh"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"/>
 
         <FrameLayout
             android:id="@+id/container"

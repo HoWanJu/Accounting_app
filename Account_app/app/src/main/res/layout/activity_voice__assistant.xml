@@ -4,87 +4,128 @@
     android:layout_height="match_parent"
     android:background="@color/colorGreyDark"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:background="#6AD3E6"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AAFFEE"
+            android:gravity="center"
+            android:text="媽媽"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
         <ScrollView
             android:id="@+id/chatScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:layout_marginBottom="55dp">
+            android:layout_marginBottom="55dp"
+            android:background="@color/colorWhite"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:id="@+id/chatLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
 
         </ScrollView>
+
         <LinearLayout
+            android:id="@+id/chat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorWhite"
+            android:background="#AAFFEE"
             android:orientation="horizontal">
-
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/ac_text"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="35dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edittext">
-                <EditText
-                    android:id="@+id/queryEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#00000000"
-                    android:hint="請輸入文字..."
-                    android:paddingHorizontal="15dp" />
-                <TextView
-                    android:id="@+id/sendBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="傳送"
-                    android:textColor="@color/colorBG"
-                    android:textSize="14sp"
-                    android:layout_weight="5"
-                    android:clickable="true"/>
-
-            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/mic"
-                android:layout_width="match_parent"
+                android:layout_width="45dp"
                 android:layout_height="50dp"
-                android:layout_weight="4"
                 android:layout_margin="2.5dp"
                 android:background="@drawable/bg_micbtn">
+
                 <ImageButton
                     android:id="@+id/listenButton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:onClick="listenButtonOnClick"
                     android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/mic"
-                    />
+                    android:onClick="listenButtonOnClick"
+                    android:src="@drawable/mic" />
+
             </RelativeLayout>
-            <CheckBox
-                android:id="@+id/swith_btn"
+
+            <LinearLayout
+                android:id="@+id/ac_text"
+                android:layout_width="300dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_edittext"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+
+                <EditText
+                    android:id="@+id/queryEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#00000000"
+                    android:hint="請輸入文字..."
+                    android:paddingHorizontal="15dp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/sendBtn"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:src="@drawable/next" />
+
+
+            <Button
+                android:id="@+id/switch_btn_account"
                 android:layout_width="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_gravity="center_vertical"
-                android:button="@drawable/btn_switch"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="15dp"
+                android:layout_weight="1"
+                android:button="@drawable/abc_vector_test"
                 android:src="@drawable/keyboard"
-                android:layout_marginVertical="5dp"/>
+                android:text="我要記帳"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/switch_btn_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="15dp"
+                android:layout_weight="1"
+                android:button="@drawable/abc_vector_test"
+                android:src="@drawable/keyboard"
+                android:text="我要聊天"
+                android:textSize="25sp" />
 
         </LinearLayout>
 
