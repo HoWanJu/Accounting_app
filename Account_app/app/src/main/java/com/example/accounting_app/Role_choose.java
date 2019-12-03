@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.accounting_app.chatting_page.Voice_Assistant;
+
 public class Role_choose extends AppCompatActivity {
     ImageButton imBtnMom;
     ImageButton imBtnDad;
@@ -65,7 +67,7 @@ public class Role_choose extends AppCompatActivity {
                 .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Role_choose.this, Main2Activity.class);
+                            Intent intent = new Intent(Role_choose.this, Voice_Assistant.class);
                             startActivity(intent);
                     }
                 }).setNegativeButton("取消", null).create().show();
