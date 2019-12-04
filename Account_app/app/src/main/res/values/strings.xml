@@ -19,4 +19,6 @@
     <string name="account_empty">請輸入帳號</string>
     <string name="password_empty">請輸入密碼</string>
     <string name="password_ensure">請輸入一樣的密碼</string>
+    <string name="login_success">成功登入!!</string>
+    <string name="BottomNavActivity">請輸入一樣的密碼</string>
 </resources>
