@@ -33,6 +33,7 @@
         <activity android:name=".Main2Activity" />
         <activity android:name=".history" />
         <activity android:name=".setting" />
+        <activity android:name=".function" />
     </application>
 
 </manifest>

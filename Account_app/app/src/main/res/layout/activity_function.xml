@@ -36,6 +36,7 @@
             android:layout_width="75dp"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
+            android:scrollbarThumbHorizontal="@drawable/pre_page"
             app:srcCompat="?attr/actionModeCloseDrawable" />
     </FrameLayout>
     <ImageButton
