@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent();
-                                        intent.setClass(LoginActivity.this, Role_choose.class);
+                                        intent.setClass(LoginActivity.this, Voice_Assistant.class);
                                         startActivity(intent);
                                         finish();
                                     } else {
