@@ -23,17 +23,17 @@
         </activity>
         <activity android:name=".Resetpassword" />
         <activity android:name=".ForgetPassword" />
-        <activity android:name=".SignupActivity" />
+        <activity android:name=".Function" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".chatting_page.Voice_Assistant"
             android:screenOrientation="portrait" />
-        <activity android:name=".budget" />
-        <activity android:name=".Role_choose" />
+        <activity android:name=".Budget" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".history" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".History" />
         <activity android:name=".setting" />
-        <activity android:name=".function" />
+        <activity android:name=".ChooseRole" />
     </application>
 
 </manifest>

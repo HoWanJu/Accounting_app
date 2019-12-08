@@ -62,7 +62,7 @@ public class SignupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent();
-                            intent.setClass(SignupActivity.this, Role_choose.class);
+                            intent.setClass(SignupActivity.this, ChooseRole.class);
                             startActivity(intent);
                             finish();
                         } else {

@@ -66,7 +66,7 @@ public class setting extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(setting.this, Role_choose.class);
+                Intent intent = new Intent(setting.this, ChooseRole.class);
                 startActivity(intent);
             }
         });
@@ -74,7 +74,7 @@ public class setting extends AppCompatActivity {
         roleBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(setting.this, Role_choose.class);
+                Intent intent = new Intent(setting.this, ChooseRole.class);
                 startActivity(intent);
             }
         });

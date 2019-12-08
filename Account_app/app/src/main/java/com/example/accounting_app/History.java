@@ -18,7 +18,7 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-public class history extends AppCompatActivity {
+public class History extends AppCompatActivity {
     String incomeStr;
     String expensesStr;
     TextView incomeTv;
@@ -44,7 +44,7 @@ public class history extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         goBack();
-        mContext = history.this;
+        mContext = History.this;
 
         datePicker = findViewById(R.id.datepicker);
 
@@ -106,7 +106,7 @@ public class history extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(history.this, function.class);
+                Intent intent = new Intent(History.this, Function.class);
                 startActivity(intent);
             }
         });

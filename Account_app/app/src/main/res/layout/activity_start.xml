@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".StartActivity">
 
 
@@ -13,6 +14,7 @@
         android:layout_height="207dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
+        android:background="#00000000"
         android:contentDescription="logoPic"
         app:srcCompat="@drawable/logo" />
 
@@ -26,8 +28,6 @@
         android:text="小智帳"
         android:textColor="@color/colorPrimary"
         android:textSize="50sp" />
-
-
 
 
 </RelativeLayout>

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class function extends AppCompatActivity {
+public class Function extends AppCompatActivity {
     ImageButton backIMGBTN;
     ImageButton chartIMGBTN;
     ImageButton budgetIMGBTN;
@@ -44,7 +44,7 @@ public class function extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, Main2Activity.class);
+                Intent intent = new Intent(Function.this, Main2Activity.class);
                 startActivity(intent);
             }
         });
@@ -54,7 +54,7 @@ public class function extends AppCompatActivity {
         chartIMGBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, Main2Activity.class);
+                Intent intent = new Intent(Function.this, Main2Activity.class);
                 startActivity(intent);
             }
         });
@@ -63,7 +63,7 @@ public class function extends AppCompatActivity {
         chartBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, Main2Activity.class);
+                Intent intent = new Intent(Function.this, Main2Activity.class);
                 startActivity(intent);
             }
         });
@@ -73,7 +73,7 @@ public class function extends AppCompatActivity {
         budgetIMGBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, budget.class);
+                Intent intent = new Intent(Function.this, Budget.class);
                 startActivity(intent);
             }
         });
@@ -82,7 +82,7 @@ public class function extends AppCompatActivity {
         budgetBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, budget.class);
+                Intent intent = new Intent(Function.this, Budget.class);
                 startActivity(intent);
             }
         });
@@ -92,7 +92,7 @@ public class function extends AppCompatActivity {
         reportIMGBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, Main2Activity.class);
+                Intent intent = new Intent(Function.this, Main2Activity.class);
                 startActivity(intent);
             }
         });
@@ -101,7 +101,7 @@ public class function extends AppCompatActivity {
         reportBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, Main2Activity.class);
+                Intent intent = new Intent(Function.this, Main2Activity.class);
                 startActivity(intent);
             }
         });
@@ -111,7 +111,7 @@ public class function extends AppCompatActivity {
         historyIMGBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, history.class);
+                Intent intent = new Intent(Function.this, History.class);
                 startActivity(intent);
             }
         });
@@ -120,7 +120,7 @@ public class function extends AppCompatActivity {
         historyBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, history.class);
+                Intent intent = new Intent(Function.this, History.class);
                 startActivity(intent);
             }
         });
@@ -130,7 +130,7 @@ public class function extends AppCompatActivity {
         settingIMGBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, setting.class);
+                Intent intent = new Intent(Function.this, setting.class);
                 startActivity(intent);
             }
         });
@@ -139,7 +139,7 @@ public class function extends AppCompatActivity {
         settingBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(function.this, setting.class);
+                Intent intent = new Intent(Function.this, setting.class);
                 startActivity(intent);
             }
         });

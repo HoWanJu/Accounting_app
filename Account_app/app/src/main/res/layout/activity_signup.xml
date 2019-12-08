@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignupActivity">
+    tools:context=".SignupActivity"
+    android:background="@drawable/background2"
+        >
+
 
     <LinearLayout
         android:id="@+id/signUp_title"
@@ -12,124 +15,77 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/account_layout">
-
-        <TextView
-            android:id="@+id/textView_signupTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/signup2"
-            android:textSize="36sp" />
+        app:layout_constraintBottom_toTopOf="@+id/account_layout"
+        tools:layout_editor_absoluteX="0dp"
+        >
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/account_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/signUp_title"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:text="@string/account"
-            android:textSize="24sp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_signupTitle">
 
         <EditText
             android:id="@+id/editText_account"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="317dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/inputbox"
             android:ems="10"
+            android:gravity="center|left|center_vertical"
+            android:hint="   帳號"
             android:inputType="textEmailAddress" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/passwordHint_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/account_layout">
-
-        <TextView
-            android:id="@+id/textView_passwordHint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:text="@string/passwordHint"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/editText_passwordHint"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:ems="10"
-            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/password_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/passwordHint_layout">
-
-        <TextView
-            android:id="@+id/textView_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:text="@string/password"
-            android:textSize="24sp" />
+        app:layout_constraintTop_toBottomOf="@+id/account_layout"
+        tools:layout_editor_absoluteX="0dp">
 
         <EditText
             android:id="@+id/editText_password"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="317dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
+            android:background="@drawable/inputbox"
             android:ems="10"
+            android:hint="   密碼"
             android:inputType="textPassword" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ensure_password_layout"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/password_layout">
-
-        <TextView
-            android:id="@+id/textView_ensure_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:text="@string/ensure_password"
-            android:textSize="24sp" />
+        app:layout_constraintTop_toBottomOf="@+id/password_layout"
+        tools:layout_editor_absoluteX="0dp">
 
         <EditText
             android:id="@+id/editText_ensure_password"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="317dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
+            android:background="@drawable/inputbox"
             android:ems="10"
+            android:hint="   請再次輸入密碼"
             android:inputType="textPassword" />
     </LinearLayout>
 
@@ -137,15 +93,15 @@
         android:id="@+id/button_signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:width="200dp"
+        android:layout_marginTop="32dp"
+        android:width="160dp"
         android:background="@drawable/transparent_bg_bordered_button"
         android:text="@string/sure"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/textView_already_acount"
@@ -153,23 +109,36 @@
         android:layout_height="wrap_content"
         android:text="已經有帳號了?"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_login_again"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_signUp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_login_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/transparent_bg_bordered_button"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_signupTitle"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="36dp"
+        android:background="#00FFFFFF"
+        android:gravity="center"
+        android:text="@string/signup2"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_already_acount"
-        app:layout_constraintVertical_bias="0.419" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
