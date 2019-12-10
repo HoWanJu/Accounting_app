@@ -34,6 +34,7 @@ public class Budget extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent intent = new Intent(Budget.this, Function.class);
 //                startActivity(intent);
+                Budget.this.finish();
             }
         });
     }
