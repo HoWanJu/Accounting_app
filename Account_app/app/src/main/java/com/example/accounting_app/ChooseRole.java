@@ -22,13 +22,13 @@ import java.util.List;
 
 
 public class ChooseRole extends AppCompatActivity {
-    private ViewPager viewPager;//页卡内容
-    private TextView textView1,textView2,textView3;
-    private List<View> views;// Tab页面列表
-    private int currIndex = 0;// 当前页卡编号
-    private View view1,view2,view3;//各个页卡
-    private Button comfirmBtn;
-    private String str;
+    private ViewPager viewPager;//頁面内容
+    private TextView textView1,textView2,textView3;//頁面標題
+    private List<View> views;// 頁面列表
+    private int currIndex = 0;// 當頁編號
+    private View view1,view2,view3;//各個頁面
+    private Button comfirmBtn; //確認鈕
+    private String str;//alertdialog字串
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,18 +86,18 @@ public class ChooseRole extends AppCompatActivity {
             changecolor(index);
         }
     }
+        //滑動頁面
         public class MyViewPagerAdapter extends PagerAdapter{
             private List<View> mListViews;
 
             public MyViewPagerAdapter(List<View> mListViews) {
                 this.mListViews = mListViews;
             }
-
+            //將原本的頁面移除
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) 	{
                 container.removeView(mListViews.get(position));
             }
-
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
@@ -118,13 +118,9 @@ public class ChooseRole extends AppCompatActivity {
         public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
             public void onPageScrollStateChanged(int arg0) {
-
-
             }
 
             public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-
             }
 
             public void onPageSelected(int arg0) {
@@ -169,6 +165,7 @@ public class ChooseRole extends AppCompatActivity {
             }
 
         }
+    //變換標頭顏色
     public void changecolor(int page){
         currIndex = page;
         switch (currIndex){
