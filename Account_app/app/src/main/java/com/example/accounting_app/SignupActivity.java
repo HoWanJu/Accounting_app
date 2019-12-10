@@ -14,9 +14,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     public FirebaseAuth mAuth;
+    private String uid;
+    private FirebaseUser user;
     private EditText accountEdit;
     private EditText passwordEdit;
     private EditText passwordEditEnsure;
@@ -61,6 +66,16 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            user = FirebaseAuth.getInstance().getCurrentUser();
+                            uid = user.getUid();
+                            //wirte to database
+                            //連接資料庫
+                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = firebaseDatabase.getReference("user_profile");
+                            User user = new User("媽媽");     // 預設角色為媽媽
+                            myRef.child(uid).setValue(user);
+                            Toast.makeText(SignupActivity.this, user.role, Toast.LENGTH_SHORT).show();
+
                             Intent intent = new Intent();
                             intent.setClass(SignupActivity.this, ChooseRole.class);
                             startActivity(intent);

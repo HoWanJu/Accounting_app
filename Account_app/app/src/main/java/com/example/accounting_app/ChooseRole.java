@@ -13,7 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import com.example.accounting_app.chatting_page.Voice_Assistant;
 
@@ -22,6 +33,10 @@ import java.util.List;
 
 
 public class ChooseRole extends AppCompatActivity {
+    public FirebaseAuth mAuth;
+    private String uid;
+    private FirebaseUser user;
+
     private ViewPager viewPager;//頁面内容
     private TextView textView1,textView2,textView3;//頁面標題
     private List<View> views;// 頁面列表
@@ -33,6 +48,7 @@ public class ChooseRole extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_choose_role);
         InitTextView();
         InitViewPager();
@@ -158,6 +174,18 @@ public class ChooseRole extends AppCompatActivity {
                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                user = FirebaseAuth.getInstance().getCurrentUser();
+                                uid = user.getUid();
+                                //wirte to database
+                                //連接資料庫
+                                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                                DatabaseReference myRef = firebaseDatabase.getReference("user_profile");
+                                Map<String, Object> childUpdates = new HashMap<>();
+                                childUpdates.put("role",str);
+                                myRef.child(uid).updateChildren(childUpdates);
+
+                                Toast.makeText(ChooseRole.this, str, Toast.LENGTH_SHORT).show();
+
                                 Intent intent = new Intent(ChooseRole.this, Voice_Assistant.class);
                                 startActivity(intent);
                             }

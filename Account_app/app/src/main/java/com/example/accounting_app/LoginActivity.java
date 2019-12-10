@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText password;
     Button loginBtn;
     TextView signup;
-//    TextView forgetpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
             loginBtn = findViewById(R.id.button_login);
             signup = findViewById(R.id.textView_signUp);
-            //        forgetpassword = findViewById(R.id.textView_forgetPas);
 
             loginBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,14 +84,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-//            forgetpassword.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent();
-//                    intent.setClass(LoginActivity.this, ForgetPassword.class);
-//                    startActivity(intent);
-//                }
-//            });
         }
         else {
             Intent intent = new Intent();
