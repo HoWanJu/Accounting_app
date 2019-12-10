@@ -44,8 +44,9 @@ public class Function extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(Function.this, Main2Activity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(Function.this, Main2Activity.class);
+//                startActivity(intent);
+                Function.this.finish();
             }
         });
     }

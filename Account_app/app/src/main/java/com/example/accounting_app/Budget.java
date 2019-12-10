@@ -32,8 +32,8 @@ public class Budget extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(Budget.this, Function.class);
-                startActivity(intent);
+//                Intent intent = new Intent(Budget.this, Function.class);
+//                startActivity(intent);
             }
         });
     }

@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity">
+<!--        <activity android:name=".ChooseRole">-->
+        <activity android:name=".History">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -31,9 +32,10 @@
         <activity android:name=".Budget" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".SignupActivity" />
-        <activity android:name=".History" />
-        <activity android:name=".setting" />
+<!--        <activity android:name=".History" />-->
         <activity android:name=".ChooseRole" />
+        <activity android:name=".setting" />
+        <activity android:name=".StartActivity" />
     </application>
 
 </manifest>

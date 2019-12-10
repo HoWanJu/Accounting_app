@@ -35,8 +35,9 @@ public class setting extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(setting.this, Main2Activity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(setting.this, Main2Activity.class);
+//                startActivity(intent);
+                setting.this.finish();
             }
         });
     }
