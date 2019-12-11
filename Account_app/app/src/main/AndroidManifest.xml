@@ -13,9 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Report"></activity>
-        <!-- <activity android:name=".ChooseRole"> -->
-        <activity android:name=".History">
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -25,17 +23,19 @@
         </activity>
         <activity android:name=".Resetpassword" />
         <activity android:name=".ForgetPassword" />
-        <activity android:name=".Function" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".chatting_page.Voice_Assistant"
             android:screenOrientation="portrait" />
         <activity android:name=".Budget" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".SignupActivity" /> <!-- <activity android:name=".History" /> -->
+        <activity android:name=".SignupActivity" />
         <activity android:name=".ChooseRole" />
         <activity android:name=".setting" />
-        <activity android:name=".StartActivity" />
+        <activity android:name=".Category" />
+        <activity android:name=".Function" />
+        <activity android:name=".History" />
+        <activity android:name=".Report" />
     </application>
 
 </manifest>

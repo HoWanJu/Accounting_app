@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/new_category_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/tag_icon"
+        android:layout_width="65dp"
+        android:layout_height="42dp"
+        app:srcCompat="@drawable/tag_icon" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="103dp"
+        android:layout_marginLeft="100dp"
+        android:layout_toEndOf="@+id/tag_icon"
+        android:layout_toRightOf="@+id/tag_icon"
+        android:text="紅包"
+        android:textColor="#000000"
+        android:textSize="35sp" />
+
+    <Button
+        android:id="@+id/trash_new"
+        android:layout_width="55dp"
+        android:layout_height="52dp"
+        android:layout_marginLeft="320dp"
+        android:background="@drawable/trash_can_icon" />
+
+</RelativeLayout>

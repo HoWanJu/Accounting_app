@@ -34,7 +34,7 @@ public class History extends AppCompatActivity {
 
 
     Button okBtn;
-    ImageButton cancelBtn;
+    Button cancelBtn;
 
     ImageButton backBTN;
     private Context mContext;
@@ -75,8 +75,8 @@ public class History extends AppCompatActivity {
         dateTv = view.findViewById(R.id.date);
         dateTv.setText(year + "年" + month + "月" + date + "日" );
         //視窗寬高
-        final PopupWindow popupWindow = new PopupWindow(view,1000,ViewGroup.LayoutParams.WRAP_CONTENT,true);
-       //點其他地方popwindow會消失
+        final PopupWindow popupWindow = new PopupWindow(view,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT,true);
+        //點其他地方popwindow會消失
         popupWindow.setTouchable(true);
         popupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
@@ -88,7 +88,7 @@ public class History extends AppCompatActivity {
         popupWindow.setBackgroundDrawable(new ColorDrawable());
         //POP視窗位置
         popupWindow.showAtLocation(okBtn, Gravity.CENTER,0,0);
-       //視窗中按鈕事件
+        //視窗中按鈕事件
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,8 +106,7 @@ public class History extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(History.this, Function.class);
-                startActivity(intent);
+                History.this.finish();
             }
         });
     }

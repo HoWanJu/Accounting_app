@@ -6,46 +6,249 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#C4E9EE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/pre_page"
+            android:layout_width="47dp"
+            android:layout_height="32dp"
+            android:layout_gravity="left|center_vertical"
+            app:srcCompat="@drawable/pre_page" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="類別管理"
+            android:textSize="40sp"
+            android:visibility="visible" />
+    </LinearLayout>
+
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/pay_btn"
         android:layout_width="152dp"
         android:layout_height="55dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_rounde"
         android:text="支出"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/income_btn"
         android:layout_width="152dp"
         android:layout_height="55dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_rounde_blue"
         android:text="收入"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.903"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <ScrollView
-        android:id="@+id/contencrollView"
+        android:id="@+id/incomeScrollView1"
         android:layout_width="411dp"
-        android:layout_height="429dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="320dp"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.546">
+        app:layout_constraintTop_toBottomOf="@+id/pay_btn">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="15dp">
+
+
+                    <ImageView
+                        android:id="@+id/pocket_icon"
+                        android:layout_width="73dp"
+                        android:layout_height="52dp"
+                        app:srcCompat="@drawable/pocket_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_toRightOf="@+id/pocket_icon"
+                        android:text="零用錢"
+                        android:textColor="#000000"
+                        android:textSize="35sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp">
+
+                    <ImageView
+                        android:id="@+id/salary_icon"
+                        android:layout_width="75dp"
+                        android:layout_height="52dp"
+                        app:srcCompat="@drawable/salary_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_toRightOf="@+id/salary_icon"
+                        android:text="薪水"
+                        android:textColor="#000000"
+                        android:textSize="35sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp">
+
+                    <ImageView
+                        android:id="@+id/gift_icon"
+                        android:layout_width="75dp"
+                        android:layout_height="52dp"
+                        app:srcCompat="@drawable/gift_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_toRightOf="@+id/gift_icon"
+                        android:text="獎金"
+                        android:textColor="#000000"
+                        android:textSize="35sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/incomeScrollView2"
+        android:layout_width="407dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="5dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/incomeScrollView1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/addIncome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp">
+
+                    <ImageView
+                        android:id="@+id/tag_icon"
+                        android:layout_width="65dp"
+                        android:layout_height="42dp"
+                        app:srcCompat="@drawable/tag_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_toRightOf="@+id/tag_icon"
+                        android:text="紅包"
+                        android:textColor="#000000"
+                        android:textSize="35sp" />
+
+                    <Button
+                        android:id="@+id/trash_new"
+                        android:layout_width="55dp"
+                        android:layout_height="52dp"
+                        android:layout_marginLeft="320dp"
+                        android:background="@drawable/trash_can_icon" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp">>
+
+                    <ImageView
+                        android:id="@+id/tag_icon_1"
+                        android:layout_width="65dp"
+                        android:layout_height="42dp"
+                        app:srcCompat="@drawable/tag_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_toRightOf="@+id/tag_icon_1"
+                        android:text="撿到錢"
+                        android:textColor="#000000"
+                        android:textSize="35sp" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="55dp"
+                        android:layout_height="52dp"
+                        android:layout_marginLeft="320dp"
+                        android:background="@drawable/trash_can_icon" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/payScrollView1"
+        android:layout_width="411dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pay_btn">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -412,56 +615,14 @@
 
     </ScrollView>
 
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="411dp"
-        android:layout_height="86dp"
-        android:background="#AAFFEE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:text="類別管理"
-        android:textSize="40sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <ImageView
-        android:id="@+id/pre_page"
-        android:layout_width="47dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041"
-        app:srcCompat="@drawable/pre_page" />
-
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/payScrollView2"
         android:layout_width="407dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="550dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background">
+        app:layout_constraintTop_toBottomOf="@+id/payScrollView1">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -469,6 +630,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/addPay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -476,10 +638,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="15dp" >
+                    android:padding="15dp">
 
                     <ImageView
-                        android:id="@+id/tag_icon"
+                        android:id="@+id/tag_icon1_income"
                         android:layout_width="65dp"
                         android:layout_height="42dp"
                         app:srcCompat="@drawable/tag_icon" />
@@ -488,13 +650,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="100dp"
-                        android:layout_toRightOf="@+id/tag_icon"
+                        android:layout_toRightOf="@+id/tag_icon1_income"
                         android:text="博客來"
                         android:textColor="#000000"
                         android:textSize="35sp" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/trash_income"
                         android:layout_width="55dp"
                         android:layout_height="52dp"
                         android:layout_marginLeft="320dp"
@@ -504,9 +666,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="15dp" >>
+                    android:padding="15dp">>
+
                     <ImageView
-                        android:id="@+id/tag_icon_1"
+                        android:id="@+id/tag_icon2_income"
                         android:layout_width="65dp"
                         android:layout_height="42dp"
                         app:srcCompat="@drawable/tag_icon" />
@@ -515,13 +678,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="100dp"
-                        android:layout_toRightOf="@+id/tag_icon_1"
+                        android:layout_toRightOf="@+id/tag_icon2_income"
                         android:text="慶生"
                         android:textColor="#000000"
                         android:textSize="35sp" />
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/trash2_income"
                         android:layout_width="55dp"
                         android:layout_height="52dp"
                         android:layout_marginLeft="320dp"
@@ -534,14 +697,13 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/add_btn"
         android:layout_width="46dp"
         android:layout_height="53dp"
         android:background="@android:drawable/ic_menu_add"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/contencrollView"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintStart_toStartOf="@+id/payScrollView1"
+        app:layout_constraintTop_toBottomOf="@+id/incomeScrollView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,7 @@ public class setting extends AppCompatActivity {
         goBack();
         goCategory();
         goRole();
-        goPassword();
+        goResetPassword();
         goLogout();
     }
     private void goBack(){
@@ -47,7 +47,7 @@ public class setting extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(setting.this, Main2Activity.class);
+                Intent intent = new Intent(setting.this, Category.class);
                 startActivity(intent);
             }
         });
@@ -55,7 +55,7 @@ public class setting extends AppCompatActivity {
         categoryBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(setting.this, Main2Activity.class);
+                Intent intent = new Intent(setting.this, Category.class);
                 startActivity(intent);
             }
         });
@@ -80,13 +80,13 @@ public class setting extends AppCompatActivity {
             }
         });
     }
-    private void goPassword(){
+    private void goResetPassword(){
         passwordIMGBTN=findViewById(R.id.passwordImgBtn);
         passwordIMGBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(setting.this, ForgetPassword.class);
+                Intent intent = new Intent(setting.this, Resetpassword.class);
                 startActivity(intent);
             }
         });
@@ -94,7 +94,7 @@ public class setting extends AppCompatActivity {
         passwordBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(setting.this, ForgetPassword.class);
+                Intent intent = new Intent(setting.this, Resetpassword.class);
                 startActivity(intent);
             }
         });
