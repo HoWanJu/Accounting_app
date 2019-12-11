@@ -13,9 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_weight="1"
-        android:background="#C1FFE4	"
+        android:background="#FFE4E2"
         android:gravity="center"
         android:text="請選擇角色"
+        android:textColor="@color/colorBlack"
         android:textSize="40sp" />
 
     <LinearLayout
@@ -95,10 +96,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/button_shape_budget"
             android:gravity="center"
             android:text="確定"
-            android:background="@drawable/btn_confirm"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
