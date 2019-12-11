@@ -93,7 +93,7 @@ public class Function extends AppCompatActivity {
         reportIMGBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Function.this, Main2Activity.class);
+                Intent intent = new Intent(Function.this, Report.class);
                 startActivity(intent);
             }
         });
@@ -102,7 +102,7 @@ public class Function extends AppCompatActivity {
         reportBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Function.this, Main2Activity.class);
+                Intent intent = new Intent(Function.this, Report.class);
                 startActivity(intent);
             }
         });
