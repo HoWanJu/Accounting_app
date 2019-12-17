@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class setting extends AppCompatActivity {
     ImageButton backIMGBTN;
     ImageButton categoryIMGBTN;
@@ -105,6 +107,7 @@ public class setting extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(setting.this, LoginActivity.class);
                 startActivity(intent);
             }
@@ -113,6 +116,7 @@ public class setting extends AppCompatActivity {
         logoutBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(setting.this, LoginActivity.class);
                 startActivity(intent);
             }
