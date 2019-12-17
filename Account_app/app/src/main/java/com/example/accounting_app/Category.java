@@ -31,7 +31,7 @@ public class Category extends AppCompatActivity{
     EditText inputCategory;
     String inputName;
     String str;
-    ImageView backBTN;
+    ImageButton backBTN;
 
     //判斷在哪一頁
     int payORimcome = 0;
@@ -47,7 +47,7 @@ public class Category extends AppCompatActivity{
     }
     //回到上一頁
     private void goBack() {
-        backBTN = findViewById(R.id.pre_page);
+        backBTN = findViewById(R.id.backBtn);
         backBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             //Main2Activity is the page to test.
