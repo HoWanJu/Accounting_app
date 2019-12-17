@@ -71,10 +71,42 @@ public class SignupActivity extends AppCompatActivity {
                             //wirte to database
                             //連接資料庫
                             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = firebaseDatabase.getReference("user_profile");
+
+                            // user setting
+                            DatabaseReference myRef_user = firebaseDatabase.getReference("user_profile");
                             User user = new User("媽媽");     // 預設角色為媽媽
-                            myRef.child(uid).setValue(user);
-                            Toast.makeText(SignupActivity.this, user.role, Toast.LENGTH_SHORT).show();
+                            myRef_user.child(uid).setValue(user);
+
+
+                            // accounting_record setting
+                            DatabaseReference myRef_accounting = firebaseDatabase.getReference("accounting_record");
+                            accounting_month accounting_month = new accounting_month(0, 0, 0);
+                            accounting_day accounting_day = new accounting_day(0, 0);
+
+                            for(Integer month=1; month<=3; month++) {
+                                if(month == 1) {   // 11月
+                                    myRef_accounting.child(uid).child("2019").child("11").setValue(accounting_month);
+                                    for(Integer day=1; day<=30; day++) {
+                                        String sDay = Integer.toString(day);
+                                        myRef_accounting.child(uid).child("2019").child("11").child(sDay).setValue(accounting_day);
+                                    }
+                                }
+                                if(month == 2) {   // 12月
+                                    myRef_accounting.child(uid).child("2019").child("12").setValue(accounting_month);
+                                    for(Integer day=1; day<=31; day++) {
+                                        String sDay = Integer.toString(day);
+                                        myRef_accounting.child(uid).child("2019").child("12").child(sDay).setValue(accounting_day);
+                                    }
+                                }
+                                if(month == 3) {   // 1月
+                                    myRef_accounting.child(uid).child("2020").child("1").setValue(accounting_month);
+                                    for(Integer day=1; day<=30; day++) {
+                                        String sDay = Integer.toString(day);
+                                        myRef_accounting.child(uid).child("2020").child("1").child(sDay).setValue(accounting_day);
+                                    }
+                                }
+                            }
+
 
                             Intent intent = new Intent();
                             intent.setClass(SignupActivity.this, ChooseRole.class);
