@@ -23,6 +23,7 @@ import android.widget.Toast;
 import android.widget.Button;
 import java.text.SimpleDateFormat;
 
+import com.example.accounting_app.Category;
 import com.example.accounting_app.R;
 import com.example.accounting_app.setting;
 import com.google.cloud.dialogflow.v2beta1.DetectIntentResponse;
@@ -145,7 +146,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Voice_Assistant.this, setting.class);
+                Intent intent = new Intent(Voice_Assistant.this, Category.class);
                 startActivity(intent);
 
             }
