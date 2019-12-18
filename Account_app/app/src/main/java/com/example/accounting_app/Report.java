@@ -35,8 +35,7 @@ public class Report extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-                Intent intent = new Intent(Report.this, Function.class);
-                startActivity(intent);
+                Report.this.finish();
             }
         });
     }

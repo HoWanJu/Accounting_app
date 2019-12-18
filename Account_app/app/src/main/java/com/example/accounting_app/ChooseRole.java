@@ -37,13 +37,13 @@ public class ChooseRole extends AppCompatActivity {
     private String uid;
     private FirebaseUser user;
 
-    private ViewPager viewPager;//頁面内容
-    private TextView textView1,textView2,textView3;//頁面標題
-    private List<View> views;// 頁面列表
+    ViewPager viewPager;//頁面内容
+    TextView textView1,textView2,textView3;//頁面標題
+    List<View> views;// 頁面列表
     private int currIndex = 0;// 當頁編號
-    private View view1,view2,view3;//各個頁面
-    private Button comfirmBtn; //確認鈕
-    private String str;//alertdialog字串
+    View view1,view2,view3;//各個頁面
+    Button comfirmBtn; //確認鈕
+    String str;//alertdialog字串
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,12 @@ public class ChooseRole extends AppCompatActivity {
         setContentView(R.layout.activity_choose_role);
         InitTextView();
         InitViewPager();
+        comfirmBtn = findViewById(R.id.confirm);
+        comfirmBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                alertdialog("媽媽");
+            }
+        });
 
     }
 
@@ -100,7 +106,9 @@ public class ChooseRole extends AppCompatActivity {
             textView3.setBackgroundResource(R.drawable.role_unseleted);
             viewPager.setCurrentItem(index);
             changecolor(index);
+
         }
+
     }
         //滑動頁面
         public class MyViewPagerAdapter extends PagerAdapter{
@@ -168,31 +176,30 @@ public class ChooseRole extends AppCompatActivity {
                     }
                 });
             }
-            private void alertdialog(String str){
-                new AlertDialog.Builder(ChooseRole.this)
-                        .setTitle("確定要選擇"+ str +"嗎？")
-                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                user = FirebaseAuth.getInstance().getCurrentUser();
-                                uid = user.getUid();
-                                //wirte to database
-                                //連接資料庫
-                                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                                DatabaseReference myRef = firebaseDatabase.getReference("user_profile");
-                                Map<String, Object> childUpdates = new HashMap<>();
-                                childUpdates.put("role",str);
-                                myRef.child(uid).updateChildren(childUpdates);
-
-                                Toast.makeText(ChooseRole.this, str, Toast.LENGTH_SHORT).show();
-
-                                Intent intent = new Intent(ChooseRole.this, Voice_Assistant.class);
-                                startActivity(intent);
-                            }
-                        }).setNegativeButton("取消", null).create().show();
-            }
-
         }
+    private void alertdialog(String str){
+        new AlertDialog.Builder(ChooseRole.this)
+                .setTitle("確定要選擇"+ str +"嗎？")
+                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        user = FirebaseAuth.getInstance().getCurrentUser();
+                        uid = user.getUid();
+                        //wirte to database
+                        //連接資料庫
+                        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = firebaseDatabase.getReference("user_profile");
+                        Map<String, Object> childUpdates = new HashMap<>();
+                        childUpdates.put("role",str);
+                        myRef.child(uid).updateChildren(childUpdates);
+
+                        Toast.makeText(ChooseRole.this, str, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(ChooseRole.this, Voice_Assistant.class);
+                        startActivity(intent);
+                    }
+                }).setNegativeButton("取消", null).create().show();
+    }
     //變換標頭顏色
     public void changecolor(int page){
         currIndex = page;
