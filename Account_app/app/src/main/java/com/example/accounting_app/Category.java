@@ -71,10 +71,14 @@ public class Category extends AppCompatActivity{
 
         showPay = findViewById(R.id.pay_btn);
         showIncome = findViewById(R.id.income_btn);
+        showPay.setSelected(true);
+        showIncome.setSelected(false);
 
         showPay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                showPay.setSelected(true);
+                showIncome.setSelected(false);
                 payView1.setVisibility(View.VISIBLE);
                 payView2.setVisibility(View.VISIBLE);
                 incomeView1.setVisibility(View.INVISIBLE);
@@ -86,6 +90,8 @@ public class Category extends AppCompatActivity{
         showIncome.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                showPay.setSelected(false);
+                showIncome.setSelected(true);
                 incomeView1.setVisibility(View.VISIBLE);
                 incomeView2.setVisibility(View.VISIBLE);
                 payView1.setVisibility(View.INVISIBLE);
