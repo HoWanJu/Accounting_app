@@ -35,7 +35,6 @@ import java.util.*;
 
 public class Budget extends AppCompatActivity {
     public FirebaseAuth mAuth;
-    public Integer nowBudge;
     public Integer nowMonth;
     public Integer nowYear;
     private String uid;
