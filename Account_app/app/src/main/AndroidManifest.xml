@@ -25,7 +25,6 @@
         </activity>
         <activity android:name=".Resetpassword" />
         <activity android:name=".ForgetPassword" />
-        <activity android:name=".Voice_assistant_account" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".chatting_page.Voice_Assistant"

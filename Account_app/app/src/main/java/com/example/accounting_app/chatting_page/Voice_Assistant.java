@@ -1,16 +1,21 @@
 package com.example.accounting_app.chatting_page;
 
+import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -23,11 +28,16 @@ import android.widget.Toast;
 import android.widget.Button;
 import java.text.SimpleDateFormat;
 
-import com.example.accounting_app.Category;
+import com.bumptech.glide.Glide;
+import com.example.accounting_app.Accounting_c_icon;
 import com.example.accounting_app.Function;
 import com.example.accounting_app.R;
-import com.example.accounting_app.setting;
 import com.google.cloud.dialogflow.v2beta1.DetectIntentResponse;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 //import com.google.api.gax.core.FixedCredentialsProvider;
 //import com.google.auth.oauth2.GoogleCredentials;
 //import com.google.auth.oauth2.ServiceAccountCredentials;
@@ -37,8 +47,7 @@ import com.google.cloud.dialogflow.v2beta1.DetectIntentResponse;
 //import com.google.cloud.dialogflow.v2beta1.SessionsSettings;
 //import com.google.cloud.dialogflow.v2beta1.TextInput;
 
-//import java.io.InputStream;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -70,6 +79,8 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     private Button button_income_Expense;
     private Button button_expense_Income;
     private Button set;
+    private RecyclerView choose_expense;
+    private RecyclerView choose_income;
 
 
     //chatbox
@@ -267,10 +278,49 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             }
         });
 
+//        選擇支出類別
+        //支出類別
+        ArrayList<Accounting_c_icon> list_expense = new ArrayList<>();
+        //連資料庫
+        DatabaseReference C_expense= FirebaseDatabase.getInstance().getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/category/c_expense");
+        C_expense.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    Accounting_c_icon c_expense = ds.getValue(Accounting_c_icon.class);
+                    list_expense.add(new Accounting_c_icon(c_expense.getLogo_url(),c_expense.getName()));
+                }
+                choose_expense = findViewById(R.id.item_choose_expense);
+                CategoryItem(choose_expense,list_expense);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });
 
+//        選擇收入類別
+        //收入類別
+        ArrayList<Accounting_c_icon> list_income = new ArrayList<>();
+        //連資料庫
+        DatabaseReference C_income= FirebaseDatabase.getInstance().getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/category/c_income");
+        C_income.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    Accounting_c_icon c_income = ds.getValue(Accounting_c_icon.class);
+                    list_income.add(new Accounting_c_icon(c_income.getLogo_url(),c_income.getName()));
+                }
+                choose_income = findViewById(R.id.item_choose_income);
+                CategoryItem(choose_income,list_income);
+            }
 
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });
 
 
 
@@ -313,6 +363,19 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         aiService.startListening();
     }
 
+//    選擇類別的recycleview
+    private void CategoryItem(RecyclerView r, ArrayList listData){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        r.setLayoutManager(linearLayoutManager);
+        r.setAdapter(new CategoryAdapter(this, listData ,new CategoryAdapter.OnItemClickListener(){
+            @Override
+            public void onClick(int pos) {
+                Toast.makeText(Voice_Assistant.this,"click..."+pos,Toast.LENGTH_SHORT).show();
+            }
+        }));
+    }
 
     private void initChatbot() {
         final AIConfiguration config = new AIConfiguration("f37ab19dce164cf68256557b4cb05129",
@@ -445,5 +508,58 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     @Override
     public void onListeningFinished() {
 
+    }
+}
+
+class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
+
+    private ArrayList listData;
+    private Accounting_c_icon data;
+    private Context mContext;
+    private CategoryAdapter.OnItemClickListener mlistener;
+
+    public CategoryAdapter(Context context, ArrayList list, CategoryAdapter.OnItemClickListener listener){
+        this.mContext = context;
+        this.listData = list;
+        this.mlistener = listener;
+    }
+
+    public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new CategoryViewHolder(LayoutInflater.from(mContext).inflate(R.layout.layout,parent,false));
+    }
+
+    @Override
+    public void onBindViewHolder(CategoryAdapter.CategoryViewHolder viewHolder, final int position) {
+        data = (Accounting_c_icon) listData.get(position);
+        Glide.with(mContext)
+                .load(data.getLogo_url())
+                .into(viewHolder.photo);
+        viewHolder.name.setText(data.getName());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mlistener.onClick(position);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return listData.size();
+    }
+    class CategoryViewHolder extends RecyclerView.ViewHolder{
+
+        private TextView name;
+        private ImageView photo;
+
+        public CategoryViewHolder(View itemView){
+            super(itemView);
+            name = itemView.findViewById(R.id.icon_name);
+            photo = itemView.findViewById(R.id.icon_img);
+        }
+    }
+
+    public interface OnItemClickListener{
+        void onClick(int pos);
     }
 }
