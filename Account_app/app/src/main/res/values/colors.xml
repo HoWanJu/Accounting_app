@@ -11,4 +11,9 @@
     <color name="colorBlueLight">#D9EBFF</color>
     <color name="transparent">#00000000</color>
     <color name="gray_50">#676a74</color>
+    <color name="colorRed">#ed717d</color>
+    <color name="colorPink">#fce8ea</color>
+    <color name="lightGray">#f2f2f2</color>
+
+
 </resources>

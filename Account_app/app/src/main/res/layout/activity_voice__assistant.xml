@@ -3,22 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreyDark"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background_vs">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="76dp"
         android:background="#6AD3E6"
         android:orientation="vertical">
-
-        <Button
-            android:id="@+id/button_set"
-            android:layout_marginLeft="300dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="設定" />
 
 
         <TextView
@@ -31,20 +23,34 @@
             android:textSize="36sp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/proto" />
+
+        <ImageView
+            android:id="@+id/button_set"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/menu"
+            android:clickable="true"/>
     </FrameLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWhite">
+        android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/chatScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="55dp"
-            android:background="@color/colorWhite"
+
             android:paddingTop="10dp">
 
             <LinearLayout
@@ -63,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#AAFFEE"
+            android:background="@color/colorWhite"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -126,6 +132,8 @@
                 android:layout_weight="1"
                 android:button="@drawable/abc_vector_test"
                 android:src="@drawable/keyboard"
+                android:background="@drawable/normal_bg_bordered_button"
+                android:textColor="@color/colorWhite"
                 android:text="我要記帳"
                 android:textSize="25sp" />
 
@@ -139,10 +147,19 @@
                 android:layout_weight="1"
                 android:button="@drawable/abc_vector_test"
                 android:src="@drawable/keyboard"
+                android:background="@drawable/normal_bg_bordered_button"
+                android:textColor="@color/colorWhite"
                 android:text="我要聊天"
                 android:textSize="25sp" />
 
         </LinearLayout>
+
+
+
+
+
+
+
 
 
         <!--        記帳(支出)-->
@@ -151,7 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_alignParentBottom="true"
-            android:background="#AAFFEE"
+            android:background="@color/colorWhite"
             android:orientation="vertical">
 
 
@@ -162,24 +179,28 @@
 
                 <ImageView
                     android:id="@+id/closeBtn_expense"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:paddingTop="5dp"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/cancel" />
 
                 <Button
                     android:id="@+id/button_expense_Expense"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:background="@drawable/normal_bg_bordered_button"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginRight="5dp"
                     android:text="支出" />
 
                 <Button
                     android:id="@+id/button_income_Expense"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:background="@drawable/normal_bg_bordered_no_button"
+                    android:layout_marginLeft="5dp"
                     android:text="收入" />
 
             </LinearLayout>
@@ -189,7 +210,26 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/lightGray">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="150dp"
+                        android:text="現金(TWD)"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/money_expense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -198,8 +238,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="現金NT$"
-                        android:textSize="24sp" />
+                        android:layout_marginLeft="80dp"
+                        android:text="$"
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/editText_money_expense"
@@ -207,9 +248,14 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:gravity="center"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:hint="請輸入您的金額"/>
 
                 </LinearLayout>
+
+
+
+
 
                 <LinearLayout
                     android:id="@+id/choose_item_expense"
@@ -226,63 +272,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="3dp" />
 
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/breakfast"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            app:srcCompat="@drawable/breakfast" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:text="早餐" />-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/lunch"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="70dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            app:srcCompat="@drawable/lunch" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:text="午餐" />-->
-
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/dinner"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="71dp"-->
-<!--                            app:srcCompat="@drawable/dinner" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:text="晚餐" />-->
-<!--                    </LinearLayout>-->
 
                 </LinearLayout>
 
@@ -327,7 +316,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_alignParentBottom="true"
-            android:background="#AAFFEE"
+            android:background="@color/colorWhite"
             android:orientation="vertical">
 
 
@@ -338,26 +327,28 @@
 
                 <ImageView
                     android:id="@+id/closeBtn_income"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:paddingTop="5dp"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/cancel" />
 
                 <Button
                     android:id="@+id/button_expense_Income"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/transparent_bg_bordered_button"
-                    android:layout_weight="0.4"
+                    android:background="@drawable/normal_bg_bordered_no_button"
+                    android:layout_marginRight="5dp"
                     android:text="支出" />
 
                 <Button
                     android:id="@+id/button_income_Income"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/transparent_bg_bordered_button"
-                    android:layout_weight="0.4"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/normal_bg_bordered_button"
                     android:text="收入" />
 
             </LinearLayout>
@@ -368,18 +359,37 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/money"
                     android:layout_width="match_parent"
+                    android:textAlignment="center"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/lightGray">
 
                     <TextView
                         android:id="@+id/textView_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="150dp"
                         android:gravity="center"
-                        android:text="現金NT$"
+                        android:text="現金(TWD)"
                         android:textSize="24sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/money_income"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="80dp"
+                        android:text="$"
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/editText_money_income"
@@ -387,7 +397,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:gravity="center"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:hint="請輸入您的金額"/>
 
                 </LinearLayout>
 
@@ -406,63 +417,6 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="3dp" />
 
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/work"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            app:srcCompat="@drawable/work" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:text="打工" />-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/prize"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="70dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            app:srcCompat="@drawable/prize" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:text="中獎" />-->
-
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/teacher"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="71dp"-->
-<!--                            app:srcCompat="@drawable/teacher" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:text="家教" />-->
-<!--                    </LinearLayout>-->
 
                 </LinearLayout>
 
