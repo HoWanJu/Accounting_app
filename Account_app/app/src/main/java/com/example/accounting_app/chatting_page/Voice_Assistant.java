@@ -24,6 +24,7 @@ import android.widget.Button;
 import java.text.SimpleDateFormat;
 
 import com.example.accounting_app.Category;
+import com.example.accounting_app.Function;
 import com.example.accounting_app.R;
 import com.example.accounting_app.setting;
 import com.google.cloud.dialogflow.v2beta1.DetectIntentResponse;
@@ -146,9 +147,8 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Voice_Assistant.this, Category.class);
+                Intent intent = new Intent(Voice_Assistant.this, Function.class);
                 startActivity(intent);
-
             }
         });
 
@@ -274,19 +274,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
 
 
-//        switch_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(switch_btn.isChecked()){
-//                    ac_text.setVisibility(View.VISIBLE);
-//                    mic.setVisibility(View.GONE);
-//                }else{
-//                    ac_text.setVisibility(View.GONE);
-//                    mic.setVisibility(View.VISIBLE);
-//                }
-//
-//            }
-//        });
         //權限
         int permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO);
@@ -338,20 +325,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         aiRequest = new AIRequest();
     }
 
-//    private void initV2Chatbot() {
-//        try {
-//            InputStream stream = getResources().openRawResource(R.raw.test_agent_credentials);
-//            GoogleCredentials credentials = GoogleCredentials.fromStream(stream);
-//            String projectId = ((ServiceAccountCredentials)credentials).getProjectId();
-//
-//            SessionsSettings.Builder settingsBuilder = SessionsSettings.newBuilder();
-//            SessionsSettings sessionsSettings = settingsBuilder.setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
-//            sessionsClient = SessionsClient.create(sessionsSettings);
-//            session = SessionName.of(projectId, uuid);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void sendMessage(View view) {
         String msg = queryEditText.getText().toString();
@@ -367,9 +340,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             RequestTask requestTask = new RequestTask(Voice_Assistant.this, aiDataService, customAIServiceContext);
             requestTask.execute(aiRequest);
 
-            // Java V2
-//            QueryInput queryInput = QueryInput.newBuilder().setText(TextInput.newBuilder().setText(msg).setLanguageCode("en-US")).build();
-//            new RequestJavaV2Task(MainActivity.this, session, sessionsClient, queryInput).execute();
         }
     }
 

@@ -24,7 +24,7 @@
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#AAFFEE"
+            android:background="#c8627b"
             android:gravity="center"
             android:text="媽媽"
             android:textSize="36sp"
@@ -340,6 +340,7 @@
                     android:id="@+id/button_expense_Income"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/transparent_bg_bordered_button"
                     android:layout_weight="0.4"
                     android:text="支出" />
 
@@ -347,6 +348,7 @@
                     android:id="@+id/button_income_Income"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/transparent_bg_bordered_button"
                     android:layout_weight="0.4"
                     android:text="收入" />
 
@@ -389,63 +391,70 @@
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/work"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"
-                            app:srcCompat="@drawable/work" />
-
-                        <TextView
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/item_choose"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="打工" />
-                    </LinearLayout>
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="3dp" />
 
-                    <LinearLayout
-                        android:id="@+id/prize"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/work"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical">-->
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/prize" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="70dp"-->
+<!--                            app:srcCompat="@drawable/work" />-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="中獎" />
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="打工" />-->
+<!--                    </LinearLayout>-->
 
-                    </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/prize"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="70dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical">-->
 
-                    <LinearLayout
-                        android:id="@+id/teacher"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+<!--                        <ImageView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:srcCompat="@drawable/prize" />-->
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="71dp"
-                            app:srcCompat="@drawable/teacher" />
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="中獎" />-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="家教" />
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/teacher"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="71dp"-->
+<!--                            app:srcCompat="@drawable/teacher" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="家教" />-->
+<!--                    </LinearLayout>-->
 
                 </LinearLayout>
 
@@ -472,6 +481,7 @@
                         android:id="@+id/button_enter_income"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/transparent_bg_bordered_button"
                         android:layout_marginLeft="20dp"
                         android:text="送出" />
                 </LinearLayout>
