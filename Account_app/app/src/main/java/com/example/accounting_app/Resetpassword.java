@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Resetpassword extends AppCompatActivity {
 
     private FirebaseUser user;
+    ImageButton backBTN;
 
     EditText oldPwEdit;
     private EditText checkPwEdit;
@@ -34,13 +36,26 @@ public class Resetpassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resetpassword);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("返回");
+        goBack();
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle("返回");
         initData();
         change();
+    }
+
+    //回到上一頁
+    private void goBack() {
+        backBTN = findViewById(R.id.backBtn);
+        backBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            //Main2Activity is the page to test.
+            public void onClick(View v) {
+                Resetpassword.this.finish();
+            }
+        });
     }
 
     private void initData(){
