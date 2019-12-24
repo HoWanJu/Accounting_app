@@ -11,6 +11,7 @@
         android:id="@+id/tag_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
         app:srcCompat="@drawable/tag_icon" />
 
     <TextView
@@ -18,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="103dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="120dp"
         android:layout_toEndOf="@+id/tag_icon"
         android:layout_toRightOf="@+id/tag_icon"
         android:text="紅包"
@@ -29,7 +30,7 @@
         android:id="@+id/trash_new"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="320dp"
+        android:layout_toLeftOf="@+id/name"
         android:background="@drawable/trash_can_icon" />
 
 </RelativeLayout>
