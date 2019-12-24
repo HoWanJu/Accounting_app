@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,8 @@ public class ChooseRole extends AppCompatActivity {
                 alertdialog("媽媽");
             }
         });
+
+
 
     }
 
@@ -194,6 +197,7 @@ public class ChooseRole extends AppCompatActivity {
 
                         Intent intent = new Intent(ChooseRole.this, Voice_Assistant.class);
                         startActivity(intent);
+
                     }
                 }).setNegativeButton("取消", null).create().show();
     }
@@ -218,4 +222,5 @@ public class ChooseRole extends AppCompatActivity {
                 break;
         }
     }
+
 }
