@@ -78,7 +78,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     private ImageView closeBtn_income;
     private Button button_income_Expense;
     private Button button_expense_Income;
-    private Button set;
+    private ImageView set;
     private RecyclerView choose_expense;
     private RecyclerView choose_income;
 
