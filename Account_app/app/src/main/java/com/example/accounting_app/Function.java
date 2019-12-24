@@ -51,23 +51,23 @@ public class Function extends AppCompatActivity {
         });
     }
     private void goChart(){
-        chartIMGBTN = findViewById(R.id.chartImgBtn);
-        chartIMGBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Function.this, Main2Activity.class);
-                startActivity(intent);
-            }
-        });
-
-        chartBTN = findViewById(R.id.chartBtn);
-        chartBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Function.this, Main2Activity.class);
-                startActivity(intent);
-            }
-        });
+//        chartIMGBTN = findViewById(R.id.chartImgBtn);
+//        chartIMGBTN.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Function.this, Main2Activity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        chartBTN = findViewById(R.id.chartBtn);
+//        chartBTN.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Function.this, Main2Activity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
     private void goBudget(){
         budgetIMGBTN = findViewById(R.id.budgetImgBtn);

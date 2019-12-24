@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity">
+        <activity android:name=".SetRole"></activity>
+         <activity android:name=".StartActivity">
+<!--        <activity android:name=".Function">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -23,7 +25,7 @@
         </activity>
         <activity android:name=".Resetpassword" />
         <activity android:name=".ForgetPassword" />
-        <activity android:name=".Voice_assistant_account"/>
+        <activity android:name=".Voice_assistant_account" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".chatting_page.Voice_Assistant"
@@ -34,8 +36,9 @@
         <activity android:name=".ChooseRole" />
         <activity android:name=".setting" />
         <activity android:name=".Category" />
-        <activity android:name=".Function" />
+         <activity android:name=".Function" />
         <activity android:name=".History" />
+<!--        <activity android:name=".StartActivity" />-->
         <activity android:name=".Report" />
     </application>
 
