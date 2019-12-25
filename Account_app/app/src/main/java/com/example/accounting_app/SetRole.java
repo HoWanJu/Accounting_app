@@ -1,5 +1,6 @@
 package com.example.accounting_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
@@ -21,10 +22,13 @@ import java.util.Map;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.example.accounting_app.chatting_page.Voice_Assistant;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +57,25 @@ public class SetRole extends AppCompatActivity {
         comfirmBtn = findViewById(R.id.confirm);
         comfirmBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                alertdialog("媽媽");
+                //wirte to database
+                //連接資料庫
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = firebaseDatabase.getReference("user_profile/" + uid );
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        // 讀取user角色資料 並設為SetRole主畫面
+                        User user = dataSnapshot.getValue(User.class);
+                        String role = user.getRole();
+                        if(role.equals("媽媽")) alertdialog("媽媽");
+                        else if(role.equals(("爸爸"))) alertdialog("爸爸");
+                        else if(role.equals("理財專家")) alertdialog("理財專家");
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+//                alertdialog("理財專家");  //-------------------------------------------------------------
             }
         });
         goBack();
@@ -85,7 +107,27 @@ public class SetRole extends AppCompatActivity {
         views.add(view2);
         views.add(view3);
         viewPager.setAdapter(new SetRole.MyViewPagerAdapter(views));
-        viewPager.setCurrentItem(0);
+
+        //wirte to database
+        //連接資料庫
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = firebaseDatabase.getReference("user_profile/" + uid );
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 讀取user角色資料 並設為SetRole主畫面
+                User user = dataSnapshot.getValue(User.class);
+                String role = user.getRole();
+                if(role.equals("媽媽")) viewPager.setCurrentItem(0);
+                else if(role.equals(("爸爸"))) viewPager.setCurrentItem(1);
+                else if(role.equals("理財專家")) viewPager.setCurrentItem(2);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+//        viewPager.setCurrentItem(2);    //------------------------------------------------------------
+
         viewPager.setOnPageChangeListener(new SetRole.MyOnPageChangeListener());
     }
 
@@ -95,7 +137,30 @@ public class SetRole extends AppCompatActivity {
         textView1 = (TextView) findViewById(R.id.page_mom);
         textView2 = (TextView) findViewById(R.id.page_dad);
         textView3 = (TextView) findViewById(R.id.page_expert);
-        textView1.setBackgroundResource(R.drawable.role_seleted);
+//        textView1.setBackgroundResource(R.drawable.role_seleted);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+
+        //wirte to database
+        //連接資料庫
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = firebaseDatabase.getReference("user_profile/" + uid );
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 讀取user角色資料 並設為SetRole主畫面
+                User user = dataSnapshot.getValue(User.class);
+                String role = user.getRole();
+                if(role.equals("媽媽")) textView1.setBackgroundResource(R.drawable.role_seleted);
+                else if(role.equals("爸爸")) textView2.setBackgroundResource(R.drawable.role_seleted);
+                else if(role.equals("理財專家")) textView3.setBackgroundResource(R.drawable.role_seleted);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
         textView1.setOnClickListener(new SetRole.MyOnClickListener(0));
         textView2.setOnClickListener(new SetRole.MyOnClickListener(1));
         textView3.setOnClickListener(new SetRole.MyOnClickListener(2));

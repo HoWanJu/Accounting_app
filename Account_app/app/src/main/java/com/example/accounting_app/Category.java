@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Category extends AppCompatActivity{
     ScrollView payView1;
     ScrollView payView2;
@@ -144,19 +147,36 @@ public class Category extends AppCompatActivity{
         final LayoutInflater inflater = LayoutInflater.from(this);
         final LinearLayout tobe_add_LT = findViewById(R.id.addPay);
         final LinearLayout tobe_add_LT1 = findViewById(R.id.addIncome);
+
         //獲取新添加的layout檔案及id
         RelativeLayout add_LT = (RelativeLayout) inflater.inflate(
                 R.layout.new_category_layout, null).findViewById(R.id.new_category_layout);
+
         //設定類別名稱
         TextView newName;
         newName = add_LT.findViewById(R.id.name);
         newName.setText(inputName);
+
         // 將新添加的layout加入要加的layout中
         if(payORimcome == 0){
             tobe_add_LT.addView(add_LT);
+
+            //add expense category to database
+            //連接資料庫
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference myRef_addEx = firebaseDatabase.getReference("category/c_expense");
+//            User user = new User("媽媽");     // 預設角色為媽媽
+//            myRef_addEx.setValue(user);
         }
         else if(payORimcome == 1){
             tobe_add_LT1.addView(add_LT);
+
+            //add income category to database
+            //連接資料庫
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference myRef_addIn = firebaseDatabase.getReference("category/c_income");
+//            User user = new User("媽媽");     // 預設角色為媽媽
+//            myRef_addIn.setValue(user);
         }
         //刪除類別
         add_LT.findViewById(R.id.trash_new).setOnClickListener(new View.OnClickListener() {
