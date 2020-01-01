@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "541364826227-fv2g4pala70v5q5hne8tfi57qf204qdm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.accounting_app",
+            "certificate_hash": "f61943d9960dda3c2788c99335e142533a84dccf"
+          }
+        },
+        {
           "client_id": "541364826227-4m8sh4cp0to0ld5rjepiko7l33j1h4k6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
