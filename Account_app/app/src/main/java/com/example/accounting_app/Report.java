@@ -42,7 +42,7 @@ public class Report extends AppCompatActivity {
         if(randomN == 1) articlePath = "/article1";
         else if(randomN == 2) articlePath = "/article2";
         else articlePath = "/article3";
-        Toast.makeText(Report.this, articlePath, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(Report.this, articlePath, Toast.LENGTH_SHORT).show();
 
         //wirte to database
         //連接資料庫
