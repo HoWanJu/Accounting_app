@@ -86,7 +86,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     private RecyclerView choose_income;
     public int flag=2;
     public String send_category="";
-
+    public String ex_or_in="收入";
 
     //chatbox
     private static final String TAG = Voice_Assistant.class.getSimpleName();
@@ -318,6 +318,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         button_income_Expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ex_or_in="收入";
                 account_expense.setVisibility(View.GONE);
                 account_income.setVisibility(View.VISIBLE);
                 ac_text.setVisibility(View.GONE);
@@ -333,6 +334,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         button_expense_Income.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ex_or_in="支出";
                 account_expense.setVisibility(View.VISIBLE);
                 account_income.setVisibility(View.GONE);
                 ac_text.setVisibility(View.GONE);
@@ -351,6 +353,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         C_expense.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list_expense.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String others=ds.getKey();
                     if (others.equals("other")) continue;
@@ -389,6 +392,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         C_income.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list_income.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String others=ds.getKey();
                     if (others.equals("other")) continue;
@@ -497,7 +501,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
         //送出聊天訊息
         if(flag==0) {
-            msg_ex = send_category + " " + msg_ex + "元";
+            msg_ex = ex_or_in + ": " + send_category + " " + msg_ex + "元";
             send_category="";
             if (msg_ex.trim().isEmpty()) {
                 Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
@@ -512,7 +516,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         }
         //送出支出訊息
         else if (flag==1) {
-            msg_in = send_category + " " + msg_in + "元";
+            msg_in = ex_or_in + ": " + send_category + " " + msg_in + "元";
             send_category="";
             if (msg_in.trim().isEmpty()) {
                 Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
