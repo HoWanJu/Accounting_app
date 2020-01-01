@@ -5,7 +5,7 @@
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSelected"
+    android:background="@color/colorPink"
     android:orientation="vertical">
 
     <ImageButton
@@ -13,7 +13,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="50dp"
-        android:background="#00FFFFFF"
+        android:background="@color/colorPink"
         android:scaleType="fitXY"
         android:src="@drawable/expert"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +28,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="理財專家"
+
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

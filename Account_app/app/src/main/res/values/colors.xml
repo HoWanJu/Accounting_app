@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ed717d</color>
+    <color name="colorPrimary">#ED717D</color>
     <color name="colorPrimaryDark">#ed717d</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorGreyDark">#363636</color>
@@ -14,7 +14,8 @@
     <color name="colorRed">#ed717d</color>
     <color name="colorPink">#FCE8EA</color>
     <color name="lightGray">#f2f2f2</color>
-    <color name="colorSelected">#FBA7B0</color>
+<!--    <color name="colorSelected">#FD9DA6</color>-->
+    <color name="colorUnselected">#FFF2F2F2</color>
 
 
 </resources>
