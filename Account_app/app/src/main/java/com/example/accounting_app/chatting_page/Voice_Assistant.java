@@ -344,10 +344,25 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String others=ds.getKey();
+                    if (others.equals("other")) continue;
                     Accounting_c_icon c_expense = ds.getValue(Accounting_c_icon.class);
                     list_expense.add(new Accounting_c_icon(c_expense.getLogo_url(),c_expense.getName()));
                 }
-
+                DatabaseReference C_other= FirebaseDatabase.getInstance().getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/category/"+uid+"/c_expense/other");
+                C_other.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            Accounting_c_icon c_other = ds.getValue(Accounting_c_icon.class);
+                            list_expense.add(new Accounting_c_icon(c_other.getLogo_url(), c_other.getName()));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.w("onCancelled",databaseError.toException());
+                    }
+                });
                 choose_expense = findViewById(R.id.item_choose_expense);
                 CategoryItem(choose_expense,list_expense);
             }
@@ -367,9 +382,26 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String others=ds.getKey();
+                    if (others.equals("other")) continue;
                     Accounting_c_icon c_income = ds.getValue(Accounting_c_icon.class);
                     list_income.add(new Accounting_c_icon(c_income.getLogo_url(),c_income.getName()));
                 }
+                DatabaseReference C_other= FirebaseDatabase.getInstance().getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/category/"+uid+"/c_income/other");
+                C_other.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            Accounting_c_icon c_other = ds.getValue(Accounting_c_icon.class);
+                            list_income.add(new Accounting_c_icon(c_other.getLogo_url(), c_other.getName()));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.w("onCancelled",databaseError.toException());
+                    }
+                });
+
                 choose_income = findViewById(R.id.item_choose_income);
                 CategoryItem(choose_income,list_income);
             }
