@@ -84,6 +84,8 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     private ImageView set;
     private RecyclerView choose_expense;
     private RecyclerView choose_income;
+    public int flag=2;
+    public String send_category;
 
 
     //chatbox
@@ -106,8 +108,16 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     //Listen
     private AIService aiService;
     ImageButton listenButton;
+    //firebase
     private FirebaseUser user;
     private String uid;
+    //accounting
+    private EditText money_ex;
+    private EditText money_in;
+    private EditText note_ex;
+    private EditText note_in;
+    private Button sendBtn_ex;
+    private Button sendBtn_in;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,11 +149,34 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         chatLayout = findViewById(R.id.chatLayout);
 
         sendBtn = findViewById(R.id.sendBtn);
+        sendBtn_ex=findViewById(R.id.button_enter_expense);
+        sendBtn_in=findViewById(R.id.button_enter_income);
+        sendBtn_ex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag=0;
+                sendMessage(sendBtn_ex);
+            }
+        });
+        sendBtn_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag=1;
+                sendMessage(sendBtn_in);
+            }
+        });
+
         sendBtn.setOnClickListener(this::sendMessage);
+
+        money_ex = findViewById(R.id.editText_money_expense);
+        money_in = findViewById(R.id.editText_money_income);
+        note_ex = findViewById(R.id.editText_note_expense);
+        note_in = findViewById(R.id.editText_note_income);
 
         queryEditText = findViewById(R.id.queryEditText);
         queryEditText.setOnKeyListener((view, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                flag=2;
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_CENTER:
                     case KeyEvent.KEYCODE_ENTER:
@@ -314,6 +347,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     Accounting_c_icon c_expense = ds.getValue(Accounting_c_icon.class);
                     list_expense.add(new Accounting_c_icon(c_expense.getLogo_url(),c_expense.getName()));
                 }
+
                 choose_expense = findViewById(R.id.item_choose_expense);
                 CategoryItem(choose_expense,list_expense);
             }
@@ -396,7 +430,10 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         r.setAdapter(new CategoryAdapter(this, listData ,new CategoryAdapter.OnItemClickListener(){
             @Override
             public void onClick(int pos) {
-                Toast.makeText(Voice_Assistant.this,"click..."+pos,Toast.LENGTH_SHORT).show();
+                Accounting_c_icon data = (Accounting_c_icon) listData.get(pos);
+                String cate_name=data.getName();
+                send_category = cate_name;
+                Toast.makeText(Voice_Assistant.this,"你選擇"+cate_name,Toast.LENGTH_SHORT).show();
             }
         }));
     }
@@ -415,18 +452,53 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
     private void sendMessage(View view) {
         String msg = queryEditText.getText().toString();
+        String msg_ex = money_ex.getText().toString();
+        String msg_in = money_in.getText().toString();
 
-
-        if (msg.trim().isEmpty()) {
-            Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
-        } else {
-            showTextView(msg, USER);
-            queryEditText.setText("");
-//             Android client
-            aiRequest.setQuery(msg);
-            RequestTask requestTask = new RequestTask(Voice_Assistant.this, aiDataService, customAIServiceContext);
-            requestTask.execute(aiRequest);
-
+        //送出聊天訊息
+        if(flag==0) {
+            msg_ex = send_category + " " + msg_ex + "元";
+            if (msg_ex.trim().isEmpty()) {
+                Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
+            } else {
+                showTextView(msg_ex, USER);
+                money_ex.setText("");
+                //             Android client
+                aiRequest.setQuery(msg_ex);
+                RequestTask requestTask = new RequestTask(Voice_Assistant.this, aiDataService, customAIServiceContext);
+                requestTask.execute(aiRequest);
+            }
+        }
+        //送出支出訊息
+        else if (flag==1) {
+            msg_in = send_category + " " + msg_in + "元";
+            if (msg_in.trim().isEmpty()) {
+                Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
+            } else {
+                showTextView(msg_in, USER);
+                money_in.setText("");
+                //             Android client
+                aiRequest.setQuery(msg_in);
+                RequestTask requestTask = new RequestTask(Voice_Assistant.this, aiDataService, customAIServiceContext);
+                requestTask.execute(aiRequest);
+                //設回預設flag
+                flag=2;
+            }
+        }
+        //送出收入訊息
+        else {
+            if (msg.trim().isEmpty()) {
+                Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
+            } else {
+                showTextView(msg, USER);
+                queryEditText.setText("");
+                //             Android client
+                aiRequest.setQuery(msg);
+                RequestTask requestTask = new RequestTask(Voice_Assistant.this, aiDataService, customAIServiceContext);
+                requestTask.execute(aiRequest);
+                //設回預設flag
+                flag=2;
+            }
         }
     }
 
