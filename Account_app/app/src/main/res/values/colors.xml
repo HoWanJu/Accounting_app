@@ -12,8 +12,9 @@
     <color name="transparent">#00000000</color>
     <color name="gray_50">#676a74</color>
     <color name="colorRed">#ed717d</color>
-    <color name="colorPink">#fce8ea</color>
+    <color name="colorPink">#FCE8EA</color>
     <color name="lightGray">#f2f2f2</color>
+    <color name="colorSelected">#FBA7B0</color>
 
 
 </resources>
