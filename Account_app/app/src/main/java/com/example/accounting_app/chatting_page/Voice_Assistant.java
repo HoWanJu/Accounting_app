@@ -32,7 +32,10 @@ import com.bumptech.glide.Glide;
 import com.example.accounting_app.Accounting_c_icon;
 import com.example.accounting_app.Function;
 import com.example.accounting_app.R;
+import com.example.accounting_app.User;
 import com.google.cloud.dialogflow.v2beta1.DetectIntentResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -103,11 +106,32 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     //Listen
     private AIService aiService;
     ImageButton listenButton;
+    private FirebaseUser user;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice__assistant);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+        //連接資料庫
+        DatabaseReference myRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/user_profile/"+uid);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                TextView role = findViewById(R.id.user_name);
+                role.setText(user.getRole());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(getActivity(), " Database Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         final ScrollView scrollview = findViewById(R.id.chatScrollView);
         scrollview.post(() -> scrollview.fullScroll(ScrollView.FOCUS_DOWN));
@@ -282,7 +306,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         //支出類別
         ArrayList<Accounting_c_icon> list_expense = new ArrayList<>();
         //連資料庫
-        DatabaseReference C_expense= FirebaseDatabase.getInstance().getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/category/c_expense");
+        DatabaseReference C_expense= FirebaseDatabase.getInstance().getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/category/"+uid+"/c_expense");
         C_expense.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -304,7 +328,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         //收入類別
         ArrayList<Accounting_c_icon> list_income = new ArrayList<>();
         //連資料庫
-        DatabaseReference C_income= FirebaseDatabase.getInstance().getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/category/c_income");
+        DatabaseReference C_income= FirebaseDatabase.getInstance().getReferenceFromUrl("https://accounting-app-7c6d5.firebaseio.com/category/"+uid+"/c_income");
         C_income.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
