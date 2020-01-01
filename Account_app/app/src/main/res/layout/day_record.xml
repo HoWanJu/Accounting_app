@@ -103,47 +103,7 @@
             android:id="@+id/records_layout"
             android:layout_width="386dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/days_record_layout"
-                android:layout_width="386dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <TextView
-                    android:id="@+id/category_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="早餐"
-                    android:textColor="#E91E63"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/price_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="TextView"
-                    android:textColor="#E91E63"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/note_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="TextView"
-                    android:textColor="#E91E63"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-        </LinearLayout>
+            android:orientation="vertical"/>
     </ScrollView>
 
     <LinearLayout

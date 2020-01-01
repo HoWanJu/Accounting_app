@@ -1,5 +1,6 @@
 package com.example.accounting_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -20,6 +21,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class History extends AppCompatActivity {
     String incomeStr;
@@ -44,10 +53,16 @@ public class History extends AppCompatActivity {
     ImageButton backBTN;
     private Context mContext;
 
+    private String uid;
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+
         goBack();
         mContext = History.this;
 
@@ -66,47 +81,59 @@ public class History extends AppCompatActivity {
         });
     }
 
-
     private void initPopupWindow(View v){
         View view = LayoutInflater.from(mContext).inflate(R.layout.day_record,null,false);
-        for(int i = 0;i<30;i++) {
+        //連接資料庫
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + year + "/" + month + "/" + date);
+        myRef_dayTotal.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(int i=1; i<=dataSnapshot.getChildrenCount()-2; i++) {
 
-            //抓當日紀錄
-            //定義要加在哪一個layout
-            final LayoutInflater inflater = LayoutInflater.from(this);
-            LinearLayout tobe_add_LT = view.findViewById(R.id.records_layout);
-            //定義要加進去的layout
-            LinearLayout add_LT = inflater.inflate(R.layout.day_record_detail, null).findViewById(R.id.new_day_record_LT);
-            //定義文字
-            TextView newCategory;
-            TextView newPrice;
-            TextView newNote;
-            newCategory = add_LT.findViewById(R.id.category_text);
-            newPrice = add_LT.findViewById(R.id.price_text);
-            newNote = add_LT.findViewById(R.id.note_text);
+                    //抓當日紀錄
+                    //定義要加在哪一個layout
+                    final LayoutInflater inflater = LayoutInflater.from(History.this);
+                    LinearLayout tobe_add_LT = view.findViewById(R.id.records_layout);
+                    //定義要加進去的layout
+                    LinearLayout add_LT = inflater.inflate(R.layout.day_record_detail, null).findViewById(R.id.new_day_record_LT);
+                    //定義文字
+                    TextView newCategory;
+                    TextView newPrice;
+                    TextView newNote;
+                    newCategory = add_LT.findViewById(R.id.category_text);
+                    newPrice = add_LT.findViewById(R.id.price_text);
+                    newNote = add_LT.findViewById(R.id.note_text);
 
-            newCategory.setText("早餐");
-            newPrice.setText("50");
-            newNote.setText("檸檬紅茶+雞排+雞塊");
-            int incomIS_0_payIS_1 = 0;
-            if (incomIS_0_payIS_1 == 1){
-                newCategory.setTextColor(Color.parseColor("#3F51B5"));
+                    newCategory.setText(dataSnapshot.child(Integer.toString(i)).child("category").getValue().toString());
+                    newPrice.setText(dataSnapshot.child(Integer.toString(i)).child("price").getValue().toString());
+                    newNote.setText(dataSnapshot.child(Integer.toString(i)).child("note").getValue().toString());
+                    int incomIS_0_payIS_1 = 0;
+                    if (incomIS_0_payIS_1 == 1){
+                        newCategory.setTextColor(Color.parseColor("#3F51B5"));
+                    }
+
+
+                    //把layout加進
+                    tobe_add_LT.addView(add_LT);
+                }
+
+                // 總收入/支出
+                accounting_day dayTotal = dataSnapshot.getValue(accounting_day.class);
+                //設定總收入&支出
+                int dayExpenses = dayTotal.getD_expend();
+                int dayIncome = dayTotal.getD_income();
+                incomeTv = view.findViewById(R.id.inMoney);
+                expensesTv = view.findViewById(R.id.exMoney);
+                incomeStr = String.valueOf(dayIncome) +"元";
+                expensesStr = String.valueOf(dayExpenses) + "元";
+                incomeTv.setText(incomeStr);
+                expensesTv.setText(expensesStr);
             }
-
-
-            //把layout加進
-            tobe_add_LT.addView(add_LT);
-        }
-
-        //設定總收入&支出
-        int dayIncome = 110;
-        int dayExpenses = 20;
-        incomeTv = view.findViewById(R.id.inMoney);
-        expensesTv = view.findViewById(R.id.exMoney);
-        incomeStr = String.valueOf(dayIncome) +"元";
-        expensesStr = String.valueOf(dayExpenses) + "元";
-        incomeTv.setText(incomeStr);
-        expensesTv.setText(expensesStr);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
         //設定日期
         dateTv = view.findViewById(R.id.date);
