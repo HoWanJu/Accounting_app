@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Accounting_app</string>
+    <string name="app_name">小智帳</string>
     <string name="button">Button</string>
     <string name="statistic">\@string</string>
     <string name="logoDes">this is logo</string>

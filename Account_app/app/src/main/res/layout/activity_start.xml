@@ -12,11 +12,12 @@
         android:id="@+id/imageView_start"
         android:layout_width="220dp"
         android:layout_height="207dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="200dp"
         android:background="#00000000"
         android:contentDescription="logoPic"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/app_icon" />
 
     <TextView
         android:id="@+id/textView"
@@ -24,10 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView_start"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="小智帳"
         android:textColor="@color/colorPrimary"
-        android:textSize="50sp" />
+        android:textSize="50sp"
+        android:textStyle="normal" />
 
 
 </RelativeLayout>
