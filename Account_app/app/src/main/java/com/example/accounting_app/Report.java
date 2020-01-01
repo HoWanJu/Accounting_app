@@ -26,7 +26,6 @@ public class Report extends AppCompatActivity {
     TextView title;
     TextView source;
     TextView author;
-    TextView preface;
     TextView Content;
 
     public FirebaseAuth mAuth;
@@ -60,7 +59,14 @@ public class Report extends AppCompatActivity {
                 title.setText(article.getTitle());
                 source.setText(article.getPublisher());
                 author.setText(article.getAuthor());
-                Content.setText(article.getPreface());
+                // 內文
+                StringBuffer content = new StringBuffer(article.getPreface());
+                content.append("\n\n\n");
+                for (int i=1; i<=dataSnapshot.child("article").getChildrenCount(); i++) {
+                    content.append(dataSnapshot.child("article").child("part"+i).getValue()+"\n\n");
+                }
+                Content.setText(content);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
