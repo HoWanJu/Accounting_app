@@ -30,9 +30,13 @@ import java.text.SimpleDateFormat;
 
 import com.bumptech.glide.Glide;
 import com.example.accounting_app.Accounting_c_icon;
+import com.example.accounting_app.Article;
+import com.example.accounting_app.CategoryRecord;
 import com.example.accounting_app.Function;
 import com.example.accounting_app.R;
+import com.example.accounting_app.Report;
 import com.example.accounting_app.User;
+import com.example.accounting_app.accounting_day;
 import com.google.cloud.dialogflow.v2beta1.DetectIntentResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,6 +55,7 @@ import com.google.firebase.database.ValueEventListener;
 //import com.google.cloud.dialogflow.v2beta1.TextInput;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -119,6 +124,12 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     private Button sendBtn_ex;
     private Button sendBtn_in;
 
+    public Integer nowMonth;
+    public Integer nowYear;
+    public Integer nowDate;
+    Calendar cal = Calendar.getInstance();
+    public Integer childrenCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,6 +167,23 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         sendBtn = findViewById(R.id.sendBtn);
         sendBtn_ex=findViewById(R.id.button_enter_expense);
         sendBtn_in=findViewById(R.id.button_enter_income);
+
+        // 日期
+        nowYear = cal.get(Calendar.YEAR);
+        nowMonth =  cal.get(Calendar.MONTH) +1;
+        nowDate =  cal.get(Calendar.DATE);
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
+        myRef_dayTotal.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                childrenCount = (int)dataSnapshot.getChildrenCount()-1;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+//        childrenCount = 2;
         sendBtn_ex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +191,25 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
                 else {
                     flag=0;
+
+                    //連接資料庫
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
+                    // 取得index值(第幾筆帳)
+                    myRef_dayTotal.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            childrenCount = (int)dataSnapshot.getChildrenCount()-1;
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                    Toast.makeText(Voice_Assistant.this, childrenCount.toString(), Toast.LENGTH_SHORT).show();
+                    CategoryRecord newRecord = new CategoryRecord(send_category, Integer.parseInt(money_ex.getText().toString()), note_ex.getText().toString());
+                    // 新增資料到accounting_record中
+                    myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
+
                     sendMessage(sendBtn_ex);
                 }
             }
@@ -174,6 +221,25 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
                 else{
                     flag=1;
+
+                    //連接資料庫
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
+                    // 取得index值(第幾筆帳)
+                    myRef_dayTotal.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            childrenCount = (int)dataSnapshot.getChildrenCount()-1;
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                    Toast.makeText(Voice_Assistant.this, childrenCount.toString(), Toast.LENGTH_SHORT).show();
+                    CategoryRecord newRecord = new CategoryRecord(send_category, Integer.parseInt(money_in.getText().toString()), note_in.getText().toString());
+                    // 新增資料到accounting_record中
+                    myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
+
                     sendMessage(sendBtn_in);
                 }
             }
