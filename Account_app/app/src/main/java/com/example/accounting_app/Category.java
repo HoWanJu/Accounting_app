@@ -2,6 +2,7 @@ package com.example.accounting_app;
 
 import android.content.DialogInterface;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import android.os.Bundle;
@@ -18,9 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.ChildEventListener;
 
 public class Category extends AppCompatActivity{
     ScrollView payView1;
@@ -39,11 +47,35 @@ public class Category extends AppCompatActivity{
     //判斷在哪一頁
     int payORimcome = 0;
 
+    private String uid;
+    private FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+
+        //連接資料庫
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = firebaseDatabase.getReference("category/" + uid + "/c_expense/other");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String readName = ds.child("name").getValue() + "";
+                    inputName = readName;
+                    readCategory();
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
         goBack();
         changeView();
         add_category();
@@ -87,6 +119,28 @@ public class Category extends AppCompatActivity{
                 incomeView1.setVisibility(View.INVISIBLE);
                 incomeView2.setVisibility(View.INVISIBLE);
                 payORimcome = 0;
+
+                // 清除原本的其他類別 避免重複讀取
+                final LinearLayout layoutD = findViewById(R.id.addPay);
+                layoutD.removeAllViews();
+
+                //連接資料庫
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = firebaseDatabase.getReference("category/" + uid + "/c_expense/other");
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String readName = ds.child("name").getValue() + "";
+                            inputName = readName;
+                            readCategory();
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
             }
         });
 
@@ -100,6 +154,28 @@ public class Category extends AppCompatActivity{
                 payView1.setVisibility(View.INVISIBLE);
                 payView2.setVisibility(View.INVISIBLE);
                 payORimcome = 1;
+
+                // 清除原本的其他類別 避免重複讀取
+                final LinearLayout layoutD = findViewById(R.id.addIncome);
+                layoutD.removeAllViews();
+
+                //連接資料庫
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = firebaseDatabase.getReference("category/" + uid + "/c_income/other");
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String readName = ds.child("name").getValue() + "";
+                            inputName = readName;
+                            readCategory();
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
             }
         });
     }
@@ -144,6 +220,29 @@ public class Category extends AppCompatActivity{
 
     //將新增的類別加至頁面中
     public void editCategory(){
+        //add expense/income category to database
+        //連接資料庫
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+        // 將新添加的layout加入要加的layout中
+        if(payORimcome == 0){
+            final LinearLayout layoutD = findViewById(R.id.addPay);
+            layoutD.removeAllViews();
+            // 連接資料庫
+            DatabaseReference myRef_addE = firebaseDatabase.getReference("category/" + uid + "/c_expense/other/" + inputName);
+            myRef_addE.setValue(new Accounting_c_icon("https://firebasestorage.googleapis.com/v0/b/accounting-app-7c6d5.appspot.com/o/tag_icon.png?alt=media&token=a870de00-345f-4698-9619-c162362dd59e", inputName));
+        }
+        else if(payORimcome == 1){
+            final LinearLayout layoutD = findViewById(R.id.addIncome);
+            layoutD.removeAllViews();
+            // 連接資料庫
+            DatabaseReference myRef_addI = firebaseDatabase.getReference("category/" + uid + "/c_income/other/" + inputName);
+            myRef_addI.setValue(new Accounting_c_icon("https://firebasestorage.googleapis.com/v0/b/accounting-app-7c6d5.appspot.com/o/tag_icon.png?alt=media&token=a870de00-345f-4698-9619-c162362dd59e", inputName));
+        }
+    }
+
+    //將原有的類別加至頁面中
+    public void readCategory(){
         final LayoutInflater inflater = LayoutInflater.from(this);
         final LinearLayout tobe_add_LT = findViewById(R.id.addPay);
         final LinearLayout tobe_add_LT1 = findViewById(R.id.addIncome);
@@ -153,30 +252,15 @@ public class Category extends AppCompatActivity{
                 R.layout.new_category_layout, null).findViewById(R.id.new_category_layout);
 
         //設定類別名稱
-        TextView newName;
-        newName = add_LT.findViewById(R.id.name);
+        TextView newName = add_LT.findViewById(R.id.name);
         newName.setText(inputName);
 
         // 將新添加的layout加入要加的layout中
         if(payORimcome == 0){
             tobe_add_LT.addView(add_LT);
-
-            //add expense category to database
-            //連接資料庫
-            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference myRef_addEx = firebaseDatabase.getReference("category/c_expense");
-//            User user = new User("媽媽");     // 預設角色為媽媽
-//            myRef_addEx.setValue(user);
         }
         else if(payORimcome == 1){
             tobe_add_LT1.addView(add_LT);
-
-            //add income category to database
-            //連接資料庫
-            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference myRef_addIn = firebaseDatabase.getReference("category/c_income");
-//            User user = new User("媽媽");     // 預設角色為媽媽
-//            myRef_addIn.setValue(user);
         }
         //刪除類別
         add_LT.findViewById(R.id.trash_new).setOnClickListener(new View.OnClickListener() {
@@ -184,13 +268,37 @@ public class Category extends AppCompatActivity{
             public void onClick(View v) {
                 if(payORimcome == 0){
                     tobe_add_LT.removeView(add_LT);
+                    TextView newName = add_LT.findViewById(R.id.name);
+                    //連接資料庫
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef_delE = firebaseDatabase.getReference("category/" + uid + "/c_expense/other/" + newName.getText().toString());
+                    myRef_delE.removeValue();
+                    Toast.makeText(Category.this, newName.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                    // 刪除後重新讀取資料
+//                    final LinearLayout layoutD = findViewById(R.id.addPay);
+//                    layoutD.removeAllViews();
+
                 }
                 else if(payORimcome == 1){
                     tobe_add_LT1.removeView(add_LT);
+                    TextView newName = add_LT.findViewById(R.id.name);
+                    //連接資料庫
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef_delE = firebaseDatabase.getReference("category/" + uid + "/c_income/other/" + newName.getText().toString());
+                    myRef_delE.removeValue();
+                    Toast.makeText(Category.this, newName.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                    // 刪除後重新讀取資料
+//                    final LinearLayout layoutD = findViewById(R.id.addIncome);
+//                    layoutD.removeAllViews();
+
                 }
                 Toast.makeText(Category.this,"已刪除", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
+
 }
