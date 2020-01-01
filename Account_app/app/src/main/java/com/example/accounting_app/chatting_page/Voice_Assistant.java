@@ -85,7 +85,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     private RecyclerView choose_expense;
     private RecyclerView choose_income;
     public int flag=2;
-    public String send_category;
+    public String send_category="";
 
 
     //chatbox
@@ -148,30 +148,38 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
         chatLayout = findViewById(R.id.chatLayout);
 
+        money_ex = findViewById(R.id.editText_money_expense);
+        money_in = findViewById(R.id.editText_money_income);
+        note_ex = findViewById(R.id.editText_note_expense);
+        note_in = findViewById(R.id.editText_note_income);
+
         sendBtn = findViewById(R.id.sendBtn);
         sendBtn_ex=findViewById(R.id.button_enter_expense);
         sendBtn_in=findViewById(R.id.button_enter_income);
         sendBtn_ex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flag=0;
-                sendMessage(sendBtn_ex);
+                if(money_ex.getText().toString().equals("")) Toast.makeText(Voice_Assistant.this,"金錢不能為空",Toast.LENGTH_SHORT).show();
+                else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
+                else {
+                    flag=0;
+                    sendMessage(sendBtn_ex);
+                }
             }
         });
         sendBtn_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flag=1;
-                sendMessage(sendBtn_in);
+                if(money_in.getText().toString().equals("")) Toast.makeText(Voice_Assistant.this,"金錢不能為空",Toast.LENGTH_SHORT).show();
+                else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
+                else{
+                    flag=1;
+                    sendMessage(sendBtn_in);
+                }
             }
         });
 
         sendBtn.setOnClickListener(this::sendMessage);
-
-        money_ex = findViewById(R.id.editText_money_expense);
-        money_in = findViewById(R.id.editText_money_income);
-        note_ex = findViewById(R.id.editText_note_expense);
-        note_in = findViewById(R.id.editText_note_income);
 
         queryEditText = findViewById(R.id.queryEditText);
         queryEditText.setOnKeyListener((view, keyCode, event) -> {
@@ -490,7 +498,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         //送出聊天訊息
         if(flag==0) {
             msg_ex = send_category + " " + msg_ex + "元";
-            send_category=null;
+            send_category="";
             if (msg_ex.trim().isEmpty()) {
                 Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
             } else {
@@ -505,7 +513,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         //送出支出訊息
         else if (flag==1) {
             msg_in = send_category + " " + msg_in + "元";
-            send_category=null;
+            send_category="";
             if (msg_in.trim().isEmpty()) {
                 Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
             } else {
