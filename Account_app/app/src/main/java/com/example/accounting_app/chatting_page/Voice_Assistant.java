@@ -490,6 +490,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         //送出聊天訊息
         if(flag==0) {
             msg_ex = send_category + " " + msg_ex + "元";
+            send_category=null;
             if (msg_ex.trim().isEmpty()) {
                 Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
             } else {
@@ -504,6 +505,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         //送出支出訊息
         else if (flag==1) {
             msg_in = send_category + " " + msg_in + "元";
+            send_category=null;
             if (msg_in.trim().isEmpty()) {
                 Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
             } else {
