@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.accounting_app.chatting_page.Voice_Assistant;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +31,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.ChildEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Category extends AppCompatActivity{
     ScrollView payView1;
@@ -58,9 +63,17 @@ public class Category extends AppCompatActivity{
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
+
         //連接資料庫
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference("category/" + uid + "/c_expense/other");
+//        // 清除原本的其他類別 避免重複讀取
+        final LinearLayout layoutD = findViewById(R.id.addPay);
+        layoutD.removeAllViews();
+
+        final LinearLayout layoutDI = findViewById(R.id.addIncome);
+        layoutDI.removeAllViews();
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -156,8 +169,8 @@ public class Category extends AppCompatActivity{
                 payORimcome = 1;
 
                 // 清除原本的其他類別 避免重複讀取
-                final LinearLayout layoutD = findViewById(R.id.addIncome);
-                layoutD.removeAllViews();
+                final LinearLayout layoutDI = findViewById(R.id.addIncome);
+                layoutDI.removeAllViews();
 
                 //連接資料庫
                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -233,8 +246,8 @@ public class Category extends AppCompatActivity{
             myRef_addE.setValue(new Accounting_c_icon("https://firebasestorage.googleapis.com/v0/b/accounting-app-7c6d5.appspot.com/o/tag_icon.png?alt=media&token=a870de00-345f-4698-9619-c162362dd59e", inputName));
         }
         else if(payORimcome == 1){
-            final LinearLayout layoutD = findViewById(R.id.addIncome);
-            layoutD.removeAllViews();
+            final LinearLayout layoutDI = findViewById(R.id.addIncome);
+            layoutDI.removeAllViews();
             // 連接資料庫
             DatabaseReference myRef_addI = firebaseDatabase.getReference("category/" + uid + "/c_income/other/" + inputName);
             myRef_addI.setValue(new Accounting_c_icon("https://firebasestorage.googleapis.com/v0/b/accounting-app-7c6d5.appspot.com/o/tag_icon.png?alt=media&token=a870de00-345f-4698-9619-c162362dd59e", inputName));
@@ -267,34 +280,47 @@ public class Category extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if(payORimcome == 0){
-                    tobe_add_LT.removeView(add_LT);
                     TextView newName = add_LT.findViewById(R.id.name);
-                    //連接資料庫
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef_delE = firebaseDatabase.getReference("category/" + uid + "/c_expense/other/" + newName.getText().toString());
-                    myRef_delE.removeValue();
-                    Toast.makeText(Category.this, newName.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                    // 刪除後重新讀取資料
-//                    final LinearLayout layoutD = findViewById(R.id.addPay);
-//                    layoutD.removeAllViews();
-
+                    new AlertDialog.Builder(Category.this)
+                            .setTitle("確定要刪除"+ newName.getText().toString() +"嗎？")
+                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    tobe_add_LT.removeView(add_LT);
+                                    //連接資料庫
+                                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                                    DatabaseReference myRef_delE = firebaseDatabase.getReference("category/" + uid + "/c_expense/other/" + newName.getText().toString());
+                                    myRef_delE.removeValue();
+                                    //刪除後重新讀取資料
+                                    final LinearLayout layoutD = findViewById(R.id.addPay);
+                                    layoutD.removeAllViews();
+                                    Toast.makeText(Category.this,"已刪除"+newName.getText().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).setNegativeButton("取消", null).create().show();
                 }
                 else if(payORimcome == 1){
-                    tobe_add_LT1.removeView(add_LT);
                     TextView newName = add_LT.findViewById(R.id.name);
-                    //連接資料庫
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef_delE = firebaseDatabase.getReference("category/" + uid + "/c_income/other/" + newName.getText().toString());
-                    myRef_delE.removeValue();
-                    Toast.makeText(Category.this, newName.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                    // 刪除後重新讀取資料
-//                    final LinearLayout layoutD = findViewById(R.id.addIncome);
-//                    layoutD.removeAllViews();
+                    new AlertDialog.Builder(Category.this)
+                            .setTitle("確定要刪除"+ newName.getText().toString() +"嗎？")
+                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    tobe_add_LT1.removeView(add_LT);
+                                    //連接資料庫
+                                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                                    DatabaseReference myRef_delE = firebaseDatabase.getReference("category/" + uid + "/c_income/other/" + newName.getText().toString());
+                                    myRef_delE.removeValue();
+                                    // 刪除後重新讀取資料
+                                    final LinearLayout layoutDI = findViewById(R.id.addIncome);
+                                    layoutDI.removeAllViews();
+                                    Toast.makeText(Category.this,"已刪除"+newName.getText().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).setNegativeButton("取消", null).create().show();
 
                 }
-                Toast.makeText(Category.this,"已刪除", Toast.LENGTH_SHORT).show();
+
             }
         });
 
