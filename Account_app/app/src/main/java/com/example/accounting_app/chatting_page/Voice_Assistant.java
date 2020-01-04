@@ -142,21 +142,14 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     public Integer childrenCount;
 
     private String first_talk;
+    public String roleKey;
 
     public ImageView roleImg;
-    public String roleName;
-    public int roleNum=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice__assistant);
-        //選完角色第一次進入
-        Bundle bundle = getIntent().getExtras();
-        if(bundle!=null) {
-            first_talk = bundle.getString("first_pick");
-            showTextView(first_talk, BOT);
-        }
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
@@ -169,10 +162,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 User user = dataSnapshot.getValue(User.class);
                 TextView role = findViewById(R.id.user_name);
                 role.setText(user.getRole());
-                roleName = user.getRole();
-                if(roleName.equals("爸爸")) roleNum=1;
-                else if(roleName.equals("媽媽")) roleNum=2;
-                else if(roleName.equals("理財專家")) roleNum=3;
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -590,6 +579,14 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 //         Android client
         initChatbot();
 
+        //選完角色第一次進入
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null) {
+            first_talk = bundle.getString("first_pick");
+            roleKey = bundle.getString("role");
+            showTextView(first_talk, BOT);
+        }
+
         // Java V2
 //        initV2Chatbot();
     }
@@ -770,9 +767,9 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         FrameLayout v = (FrameLayout) inflater.inflate(R.layout.bot_msg_layout, null);
         // 設定聊天機器人頭像
         roleImg = v.findViewById(R.id.left_img);
-        if(roleNum == 1) roleImg.setImageResource(R.drawable.dad);
-        else if(roleNum == 2) roleImg.setImageResource(R.drawable.mother);
-        else if(roleNum == 3) roleImg.setImageResource(R.drawable.expert);
+        if(roleKey.equals("爸爸")) roleImg.setImageResource(R.drawable.dad);
+        else if(roleKey.equals("媽媽")) roleImg.setImageResource(R.drawable.mother);
+        else if(roleKey.equals("理財專家")) roleImg.setImageResource(R.drawable.expert);
         return v;
     }
 

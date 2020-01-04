@@ -208,6 +208,7 @@ public class ChooseRole extends AppCompatActivity {
                         Intent intent = new Intent(ChooseRole.this, Voice_Assistant.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("first_pick",first_pick);//傳遞String
+                        bundle.putString("role",str);
                         intent.putExtras(bundle);
                         startActivity(intent);
 
