@@ -57,6 +57,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import ai.api.AIServiceContext;
@@ -92,6 +94,9 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     public int flag=2;
     public String send_category="";
     public String ex_or_in="收入";
+
+    public int newDEx;
+    public int newDIn;
 
     //chatbox
     private static final String TAG = Voice_Assistant.class.getSimpleName();
@@ -183,7 +188,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-//        childrenCount = 2;
         sendBtn_ex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,15 +204,23 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             childrenCount = (int)dataSnapshot.getChildrenCount()-1;
+
+                            accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
+//                            int DEx = accounting_day.getD_expend();
+//                            newDEx = Integer.parseInt(money_ex.getText().toString())+DEx;
+//                            Toast.makeText(Voice_Assistant.this, Integer.toString(newDEx), Toast.LENGTH_SHORT).show();
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
-                    Toast.makeText(Voice_Assistant.this, childrenCount.toString(), Toast.LENGTH_SHORT).show();
                     CategoryRecord newRecord = new CategoryRecord(send_category, Integer.parseInt(money_ex.getText().toString()), note_ex.getText().toString());
                     // 新增資料到accounting_record中
                     myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
+                    // 更新每日總支出
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("d_expend",newDEx);
+                    myRef_dayTotal.updateChildren(childUpdates);
 
                     sendMessage(sendBtn_ex);
                 }
@@ -230,15 +242,23 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             childrenCount = (int)dataSnapshot.getChildrenCount()-1;
+
+                            accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
+//                            int DIn = accounting_day.getD_income();
+//                            newDIn = Integer.parseInt(money_in.getText().toString())+DIn;
+//                            Toast.makeText(Voice_Assistant.this, Integer.toString(newDIn), Toast.LENGTH_SHORT).show();
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
-                    Toast.makeText(Voice_Assistant.this, childrenCount.toString(), Toast.LENGTH_SHORT).show();
                     CategoryRecord newRecord = new CategoryRecord(send_category, Integer.parseInt(money_in.getText().toString()), note_in.getText().toString());
                     // 新增資料到accounting_record中
                     myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
+                    // 更新每日總收入
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("d_income",newDIn);
+                    myRef_dayTotal.updateChildren(childUpdates);
 
                     sendMessage(sendBtn_in);
                 }
