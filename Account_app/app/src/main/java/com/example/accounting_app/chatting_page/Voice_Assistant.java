@@ -222,7 +222,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
                 else {
                     flag=0;
-
+                    ex_or_in="支出";
                     //連接資料庫
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
@@ -278,7 +278,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
                 else{
                     flag=1;
-
+                    ex_or_in="收入";
                     //連接資料庫
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
