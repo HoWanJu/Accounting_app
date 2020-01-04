@@ -253,7 +253,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
                     // 累加支出
                     newDEx = Integer.parseInt(money_ex.getText().toString())+DEx;
-                    Toast.makeText(Voice_Assistant.this, Integer.toString(newDEx), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Voice_Assistant.this, Integer.toString(newDEx), Toast.LENGTH_SHORT).show();
                     // 更新每日總支出
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("d_expend",newDEx);
@@ -306,7 +306,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
                     // 累加收入
                     newDIn = Integer.parseInt(money_in.getText().toString())+DIn;
-                    Toast.makeText(Voice_Assistant.this, Integer.toString(newDIn), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Voice_Assistant.this, Integer.toString(newDIn), Toast.LENGTH_SHORT).show();
                     // 更新每日總收入
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("d_income",newDIn);
@@ -584,7 +584,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         if(bundle!=null) {
             first_talk = bundle.getString("first_pick");
             roleKey = bundle.getString("role");
-            showTextView(first_talk, BOT);
+            if(first_talk!=null) showTextView(first_talk, BOT);
         }
 
         // Java V2
@@ -767,9 +767,11 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         FrameLayout v = (FrameLayout) inflater.inflate(R.layout.bot_msg_layout, null);
         // 設定聊天機器人頭像
         roleImg = v.findViewById(R.id.left_img);
-        if(roleKey.equals("爸爸")) roleImg.setImageResource(R.drawable.dad);
-        else if(roleKey.equals("媽媽")) roleImg.setImageResource(R.drawable.mother);
-        else if(roleKey.equals("理財專家")) roleImg.setImageResource(R.drawable.expert);
+        if(roleKey!=null) {
+            if (roleKey.equals("爸爸")) roleImg.setImageResource(R.drawable.dad);
+            else if (roleKey.equals("媽媽")) roleImg.setImageResource(R.drawable.mother);
+            else if (roleKey.equals("理財專家")) roleImg.setImageResource(R.drawable.expert);
+        }
         return v;
     }
 

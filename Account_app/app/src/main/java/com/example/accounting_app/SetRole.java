@@ -88,7 +88,7 @@ public class SetRole extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-//                Intent intent = new Intent(setting.this, Main2Activity.class);
+//                Intent intent = new Intent(SetRole.this, setting.class);
 //                startActivity(intent);
                 SetRole.this.finish();
             }
@@ -274,6 +274,9 @@ public class SetRole extends AppCompatActivity {
                         Toast.makeText(SetRole.this, str, Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(SetRole.this, Voice_Assistant.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("role",str);
+                        intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 }).setNegativeButton("取消", null).create().show();
