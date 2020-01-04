@@ -108,9 +108,15 @@ public class History extends AppCompatActivity {
                     newCategory.setText(dataSnapshot.child(Integer.toString(i)).child("category").getValue().toString());
                     newPrice.setText(dataSnapshot.child(Integer.toString(i)).child("price").getValue().toString());
                     newNote.setText(dataSnapshot.child(Integer.toString(i)).child("note").getValue().toString());
-                    int incomIS_0_payIS_1 = 0;
-                    if (incomIS_0_payIS_1 == 1){
+                    String EXorIN = dataSnapshot.child(Integer.toString(i)).child("EXorIN").getValue().toString();
+
+                    int incomIS_1_payIS_0=0;
+                    if(EXorIN.equals("expense")) incomIS_1_payIS_0 = 0;
+                    else if(EXorIN.equals("income")) incomIS_1_payIS_0 = 1;
+                    if (incomIS_1_payIS_0 == 1){
                         newCategory.setTextColor(Color.parseColor("#3F51B5"));
+                        newPrice.setTextColor(Color.parseColor("#3F51B5"));
+                        newNote.setTextColor(Color.parseColor("#3F51B5"));
                     }
 
 
