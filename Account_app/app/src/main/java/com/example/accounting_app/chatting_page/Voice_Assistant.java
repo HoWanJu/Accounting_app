@@ -193,6 +193,10 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 childrenCount = (int)dataSnapshot.getChildrenCount()-1;
+
+                accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
+                DEx = accounting_day.getD_expend();
+                DIn = accounting_day.getD_income();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -205,8 +209,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
                 else {
                     flag=0;
-                    ex_or_in="支出";
-                    String ex_num = money_ex.getText().toString();
+
                     //連接資料庫
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
@@ -218,8 +221,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
                             accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
                             DEx = accounting_day.getD_expend();
-
-//                            Toast.makeText(Voice_Assistant.this, Integer.toString(newDEx), Toast.LENGTH_SHORT).show();
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -228,13 +229,16 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     CategoryRecord newRecord = new CategoryRecord(send_category, Integer.parseInt(money_ex.getText().toString()), note_ex.getText().toString());
                     // 新增資料到accounting_record中
                     myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
-                    // 更新每日總支出
+                    // 累加支出
                     newDEx = Integer.parseInt(money_ex.getText().toString())+DEx;
+                    Toast.makeText(Voice_Assistant.this, Integer.toString(newDEx), Toast.LENGTH_SHORT).show();
+                    // 更新每日總支出
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("d_expend",newDEx);
                     myRef_dayTotal.updateChildren(childUpdates);
-
-                    sendMessage(sendBtn_ex);
+                    Map<String, Object> childUpdates1 = new HashMap<>();
+                    childUpdates1.put("EXorIN","expense");
+                    myRef_dayTotal.child(childrenCount.toString()).updateChildren(childUpdates1);
                 }
             }
         });
@@ -245,7 +249,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
                 else{
                     flag=1;
-                    ex_or_in="收入";
+
                     //連接資料庫
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
@@ -257,8 +261,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
                             accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
                             DIn = accounting_day.getD_income();
-
-//                            Toast.makeText(Voice_Assistant.this, Integer.toString(newDIn), Toast.LENGTH_SHORT).show();
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -267,11 +269,16 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     CategoryRecord newRecord = new CategoryRecord(send_category, Integer.parseInt(money_in.getText().toString()), note_in.getText().toString());
                     // 新增資料到accounting_record中
                     myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
-                    // 更新每日總收入
+                    // 累加收入
                     newDIn = Integer.parseInt(money_in.getText().toString())+DIn;
+                    Toast.makeText(Voice_Assistant.this, Integer.toString(newDIn), Toast.LENGTH_SHORT).show();
+                    // 更新每日總收入
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("d_income",newDIn);
                     myRef_dayTotal.updateChildren(childUpdates);
+                    Map<String, Object> childUpdates1 = new HashMap<>();
+                    childUpdates1.put("EXorIN","income");
+                    myRef_dayTotal.child(childrenCount.toString()).updateChildren(childUpdates1);
 
                     sendMessage(sendBtn_in);
                 }
