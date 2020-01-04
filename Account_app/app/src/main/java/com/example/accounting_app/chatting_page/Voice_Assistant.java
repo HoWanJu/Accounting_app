@@ -37,6 +37,7 @@ import com.example.accounting_app.R;
 import com.example.accounting_app.Report;
 import com.example.accounting_app.User;
 import com.example.accounting_app.accounting_day;
+import com.example.accounting_app.accounting_month;
 import com.google.cloud.dialogflow.v2beta1.DetectIntentResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -99,6 +100,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     public int newDIn;
     public int DEx;
     public int DIn;
+    public int newBudget;
 
     //chatbox
     private static final String TAG = Voice_Assistant.class.getSimpleName();
@@ -189,6 +191,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         nowDate =  cal.get(Calendar.DATE);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
+        DatabaseReference myRef_monthTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth);
         myRef_dayTotal.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -197,6 +200,16 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
                 DEx = accounting_day.getD_expend();
                 DIn = accounting_day.getD_income();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        myRef_monthTotal.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                accounting_month accounting_month = dataSnapshot.getValue(accounting_month.class);
+                newBudget = accounting_month.getM_budget();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -213,6 +226,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     //連接資料庫
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
+                    DatabaseReference myRef_monthTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth);
                     // 取得index值(第幾筆帳)
                     myRef_dayTotal.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -221,6 +235,16 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
                             accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
                             DEx = accounting_day.getD_expend();
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                    myRef_monthTotal.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            accounting_month accounting_month = dataSnapshot.getValue(accounting_month.class);
+                            newBudget = accounting_month.getM_budget();
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -239,6 +263,11 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     Map<String, Object> childUpdates1 = new HashMap<>();
                     childUpdates1.put("EXorIN","expense");
                     myRef_dayTotal.child(childrenCount.toString()).updateChildren(childUpdates1);
+                    Map<String, Object> month = new HashMap<>();
+                    month.put("m_budget",newBudget-DEx);
+                    myRef_monthTotal.updateChildren(month);
+
+                    sendMessage(sendBtn_ex);
                 }
             }
         });
