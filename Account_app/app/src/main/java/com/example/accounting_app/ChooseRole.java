@@ -192,10 +192,23 @@ public class ChooseRole extends AppCompatActivity {
                         Map<String, Object> childUpdates = new HashMap<>();
                         childUpdates.put("role",str);
                         myRef.child(uid).updateChildren(childUpdates);
-
+                        String first_pick="";
                         Toast.makeText(ChooseRole.this, str, Toast.LENGTH_SHORT).show();
 
+                        if(str.equals("媽媽")) {
+                            first_pick="你終於願意開始記帳了...從現在開始，你一定要每天記帳，養成這個好習慣，之後才不會天天花錢如流水，變成月光族或是啃老族，以後你沒錢不要來找我養你!...";
+                        }
+                        else if(str.equals("爸爸")) {
+                            first_pick="太好了! 你已經努力地跨出記帳的第一步，以後也要持續記帳，這樣才能夠有效的管控你口袋裡面的錢! 過程中，我也會一直陪著你，所以不要偷懶喔!";
+                        }
+                        else {
+                            first_pick="恭喜你願意為了有效控管你的\"錢途\"，而選擇記帳這條艱辛的道路，請努力的堅持下去，不要因為懶惰而放棄!";
+                        }
+
                         Intent intent = new Intent(ChooseRole.this, Voice_Assistant.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("first_pick",first_pick);//傳遞String
+                        intent.putExtras(bundle);
                         startActivity(intent);
 
                     }

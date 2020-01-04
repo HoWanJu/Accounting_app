@@ -93,10 +93,12 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     private RecyclerView choose_income;
     public int flag=2;
     public String send_category="";
-    public String ex_or_in="收入";
+    public String ex_or_in="支出";
 
     public int newDEx;
     public int newDIn;
+    public int DEx;
+    public int DIn;
 
     //chatbox
     private static final String TAG = Voice_Assistant.class.getSimpleName();
@@ -135,10 +137,18 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
     Calendar cal = Calendar.getInstance();
     public Integer childrenCount;
 
+    private String first_talk;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice__assistant);
+        //選完角色第一次進入
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null) {
+            first_talk = bundle.getString("first_pick");
+            showTextView(first_talk, BOT);
+        }
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
@@ -195,7 +205,8 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
                 else {
                     flag=0;
-
+                    ex_or_in="支出";
+                    String ex_num = money_ex.getText().toString();
                     //連接資料庫
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
@@ -206,8 +217,8 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                             childrenCount = (int)dataSnapshot.getChildrenCount()-1;
 
                             accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
-//                            int DEx = accounting_day.getD_expend();
-//                            newDEx = Integer.parseInt(money_ex.getText().toString())+DEx;
+                            DEx = accounting_day.getD_expend();
+
 //                            Toast.makeText(Voice_Assistant.this, Integer.toString(newDEx), Toast.LENGTH_SHORT).show();
                         }
                         @Override
@@ -218,6 +229,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     // 新增資料到accounting_record中
                     myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
                     // 更新每日總支出
+                    newDEx = Integer.parseInt(money_ex.getText().toString())+DEx;
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("d_expend",newDEx);
                     myRef_dayTotal.updateChildren(childUpdates);
@@ -233,7 +245,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 else if(send_category.equals("")) Toast.makeText(Voice_Assistant.this,"請選擇一項類別",Toast.LENGTH_SHORT).show();
                 else{
                     flag=1;
-
+                    ex_or_in="收入";
                     //連接資料庫
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference myRef_dayTotal = firebaseDatabase.getReference("accounting_record/" + uid + "/" + nowYear + "/" + nowMonth + "/" + nowDate);
@@ -244,8 +256,8 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                             childrenCount = (int)dataSnapshot.getChildrenCount()-1;
 
                             accounting_day accounting_day = dataSnapshot.getValue(accounting_day.class);
-//                            int DIn = accounting_day.getD_income();
-//                            newDIn = Integer.parseInt(money_in.getText().toString())+DIn;
+                            DIn = accounting_day.getD_income();
+
 //                            Toast.makeText(Voice_Assistant.this, Integer.toString(newDIn), Toast.LENGTH_SHORT).show();
                         }
                         @Override
@@ -256,6 +268,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                     // 新增資料到accounting_record中
                     myRef_dayTotal.child(childrenCount.toString()).setValue(newRecord);
                     // 更新每日總收入
+                    newDIn = Integer.parseInt(money_in.getText().toString())+DIn;
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("d_income",newDIn);
                     myRef_dayTotal.updateChildren(childUpdates);
@@ -404,7 +417,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         button_income_Expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ex_or_in="收入";
                 account_expense.setVisibility(View.GONE);
                 account_income.setVisibility(View.VISIBLE);
                 ac_text.setVisibility(View.GONE);
@@ -420,7 +432,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         button_expense_Income.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ex_or_in="支出";
                 account_expense.setVisibility(View.VISIBLE);
                 account_income.setVisibility(View.GONE);
                 ac_text.setVisibility(View.GONE);
@@ -513,12 +524,12 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
 
         //權限
-        int permission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO);
+//        int permission = ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.RECORD_AUDIO);
 
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            makeRequest();
-        }
+//        if (permission != PackageManager.PERMISSION_GRANTED) {
+//            makeRequest();
+//        }
 
 //         Android client
         initChatbot();
@@ -585,7 +596,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
         String msg_ex = money_ex.getText().toString();
         String msg_in = money_in.getText().toString();
 
-        //送出聊天訊息
+        //送出支出訊息
         if(flag==0) {
             msg_ex = ex_or_in + ": " + send_category + " " + msg_ex + "元";
             send_category="";
@@ -594,13 +605,16 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             } else {
                 showTextView(msg_ex, USER);
                 money_ex.setText("");
+                note_ex.setText("");
                 //             Android client
                 aiRequest.setQuery(msg_ex);
                 RequestTask requestTask = new RequestTask(Voice_Assistant.this, aiDataService, customAIServiceContext);
                 requestTask.execute(aiRequest);
+                //設回預設flag
+                flag=2;
             }
         }
-        //送出支出訊息
+        //送出收入訊息
         else if (flag==1) {
             msg_in = ex_or_in + ": " + send_category + " " + msg_in + "元";
             send_category="";
@@ -609,6 +623,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
             } else {
                 showTextView(msg_in, USER);
                 money_in.setText("");
+                note_in.setText("");
                 //             Android client
                 aiRequest.setQuery(msg_in);
                 RequestTask requestTask = new RequestTask(Voice_Assistant.this, aiDataService, customAIServiceContext);
@@ -617,7 +632,7 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 flag=2;
             }
         }
-        //送出收入訊息
+        //送出聊天訊息
         else {
             if (msg.trim().isEmpty()) {
                 Toast.makeText(Voice_Assistant.this, "Please enter your query!", Toast.LENGTH_LONG).show();
@@ -628,8 +643,6 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 aiRequest.setQuery(msg);
                 RequestTask requestTask = new RequestTask(Voice_Assistant.this, aiDataService, customAIServiceContext);
                 requestTask.execute(aiRequest);
-                //設回預設flag
-                flag=2;
             }
         }
     }
