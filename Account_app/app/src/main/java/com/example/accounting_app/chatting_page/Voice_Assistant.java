@@ -143,6 +143,10 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
     private String first_talk;
 
+    public ImageView roleImg;
+    public String roleName;
+    public int roleNum=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,6 +169,10 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
                 User user = dataSnapshot.getValue(User.class);
                 TextView role = findViewById(R.id.user_name);
                 role.setText(user.getRole());
+                roleName = user.getRole();
+                if(roleName.equals("爸爸")) roleNum=1;
+                else if(roleName.equals("媽媽")) roleNum=2;
+                else if(roleName.equals("理財專家")) roleNum=3;
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -759,7 +767,13 @@ public class Voice_Assistant extends AppCompatActivity implements AIListener {
 
     FrameLayout getBotLayout() {
         LayoutInflater inflater = LayoutInflater.from(Voice_Assistant.this);
-        return (FrameLayout) inflater.inflate(R.layout.bot_msg_layout, null);
+        FrameLayout v = (FrameLayout) inflater.inflate(R.layout.bot_msg_layout, null);
+        // 設定聊天機器人頭像
+        roleImg = v.findViewById(R.id.left_img);
+        if(roleNum == 1) roleImg.setImageResource(R.drawable.dad);
+        else if(roleNum == 2) roleImg.setImageResource(R.drawable.mother);
+        else if(roleNum == 3) roleImg.setImageResource(R.drawable.expert);
+        return v;
     }
 
     @Override

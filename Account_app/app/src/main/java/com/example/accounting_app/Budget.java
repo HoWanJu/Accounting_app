@@ -40,9 +40,9 @@ public class Budget extends AppCompatActivity {
     private String uid;
     private FirebaseUser user;
     private Integer budget;
+    public Integer monthEx;
 
     Calendar cal = Calendar.getInstance();
-//    cal.setTime(new Date());
 
     ImageButton backBTN;
     Button confirmBTN;
@@ -72,6 +72,7 @@ public class Budget extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 accounting_month accounting_month = dataSnapshot.getValue(accounting_month.class);
                 budget = accounting_month.getM_budget();
+                monthEx = accounting_month.getM_expend();
                 inputEdT.setHint(budget.toString());
             }
             @Override
@@ -89,8 +90,6 @@ public class Budget extends AppCompatActivity {
             @Override
             //Main2Activity is the page to test.
             public void onClick(View v) {
-//                Intent intent = new Intent(Budget.this, Function.class);
-//                startActivity(intent);
                 Budget.this.finish();
             }
         });
@@ -116,15 +115,6 @@ public class Budget extends AppCompatActivity {
     }
 
     private void budgetAlertDialog(){
-//        mAuth = FirebaseAuth.getInstance();
-//
-//        inputEdT = findViewById(R.id.inputET);
-//
-//        user = FirebaseAuth.getInstance().getCurrentUser();
-//        uid = user.getUid();
-//
-//        nowYear = cal.get(Calendar.YEAR);
-//        nowMonth =  cal.get(Calendar.MONTH) +1;
 
         new AlertDialog.Builder(Budget.this)
                 .setTitle("確定要輸入預算嗎")
@@ -136,7 +126,7 @@ public class Budget extends AppCompatActivity {
                         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                         DatabaseReference myRef_update = firebaseDatabase.getReference("accounting_record");
                         Map<String, Object> childUpdates = new HashMap<>();
-                        childUpdates.put("m_budget",Integer.parseInt(inputEdT.getText().toString()));
+                        childUpdates.put("m_budget",Integer.parseInt(inputEdT.getText().toString())-monthEx);
                         myRef_update.child(uid).child(nowYear.toString()).child(nowMonth.toString()).updateChildren(childUpdates);
 
                         Toast.makeText(Budget.this,confirmStr, Toast.LENGTH_LONG).show();
